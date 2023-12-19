@@ -6,13 +6,14 @@ import {
   NavbarContent,
   NavbarItem,
   Link,
-  Button,
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@nextui-org/react";
 
 import { HomeIcon, ScrollText, Swords } from "lucide-react";
+
+import UserCredentials from "./UserCredentials";
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -37,16 +38,7 @@ export default function App() {
           <input type="text" />
         </NavbarItem>
       </NavbarContent>
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
+      <UserCredentials />
       <NavbarMenu className="bg-[rgb(32,32,36)]">
         <NavbarMenuItem className="flex flex-col gap-10 p-6 ">
           <Link className="flex w-full gap-2" href="#" size="lg">
