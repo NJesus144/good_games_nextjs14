@@ -15,6 +15,8 @@ import {
 import { sidebarLinks } from "@/constants";
 
 import UserCredentials from "./UserCredentials";
+import SelectFilter from "../SelectFilter";
+import { GenresFilters } from "@/constants/filters";
 
 const NavContent = () => {
   const pathname = usePathname();
@@ -44,6 +46,10 @@ const NavContent = () => {
           </div>
         );
       })}
+      <SelectFilter
+        filters={GenresFilters}
+        otherClasses="max-sm:block mt-4"
+      />
     </section>
   );
 };
@@ -52,7 +58,7 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-[rgb(32,32,36)] p-6">
+    <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-[rgb(32,32,36)] p-6 ">
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}

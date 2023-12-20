@@ -1,10 +1,10 @@
-export const PlatformsFilters = [
-  { id: 4, name: "PC", value: "pc" },
-  { id: 187, name: "Playstation 5", value: "ps5" },
-  { id: 18, name: "Playstation 4", value: "ps4" },
-  { id: 1, name: "Xbox One", value: "xbox" },
-  { id: 186, name: "Xbox Series S/X", value: "xboxs" },
-  { id: 7, name: "Nintendo Switch", value: "nintendo" },
-  { id: 3, name: "iOS", value: "ios" },
-  { id: 21, name: "Android", value: "androind" },
+export const GenresFilters = [
+  { id: 4, name: "Action", value: "action", slug: 'action'},
+  { id: 51, name: "Indie", value: "indie", slug: 'indie'},
+  { id: 5, name: "RPG", value: "rpg", slug: 'role-playing-games-rpg'},
+  { id: 2, name: "Shooter", value: "shooter", slug: 'shooter' },
+  { id: 1, name: "Racing", value: "racing", slug: 'racing'},
+  { id: 15, name: "Sports", value: "sports", slug: 'sports'},
+  { id: 6, name: "Fighting", value: "fighting", slug: 'fighting'},
+  { id: 59, name: "Massively Multiplayer", value: "massively-multiplayer", slug: 'massively-multiplayer' },
 ];

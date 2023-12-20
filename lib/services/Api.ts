@@ -1,10 +1,11 @@
 
-export async function getPlatform() {
+export async function getGamesByGenre(slug: string) {
   const respose = await fetch(
-    `https://api.rawg.io/api/platforms?key=${process.env.API_KEY}`
+    `https://api.rawg.io/api/games?key=${process.env.API_KEY}&genres=${slug}`
   );
+  console.log(slug);
   const data = await respose.json();
-  console.log(data.results)
+
   // const allPlatforms = data.results.map((item: any) => item.name);
   // const selectedPlatforms = [
   //   "PC",
@@ -19,6 +20,5 @@ export async function getPlatform() {
   //   selectedPlatforms.includes(platform)
   // );
 
-
-  // return platforms;
+  return data.results;
 }
