@@ -1,5 +1,7 @@
 "use client";
 import React from "react";
+import { usePathname } from "next/navigation";
+
 import {
   Navbar,
   NavbarBrand,
@@ -10,16 +12,47 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@nextui-org/react";
-
-import { HomeIcon, ScrollText, Swords } from "lucide-react";
+import { sidebarLinks } from "@/constants";
 
 import UserCredentials from "./UserCredentials";
+
+const NavContent = () => {
+  const pathname = usePathname();
+
+  return (
+    <section>
+      {sidebarLinks.map((item) => {
+        const isActive =
+          (pathname.includes(item.route) && item.route.length > 1) ||
+          pathname === item.route;
+
+        const Icon = item.icon;
+
+        return (
+          <div key={item.route}>
+            <Link
+              href={item.route}
+              className={`${
+                isActive ? " rounded-lg " : "text-white"
+              } flex items-center justify-start gap-4 bg-transparent p-4`}
+            >
+              <Icon />
+              <p className={`${isActive ? "font-bold" : "font-medium"}`}>
+                {item.label}
+              </p>
+            </Link>
+          </div>
+        );
+      })}
+    </section>
+  );
+};
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-[rgb(32,32,36)] ">
+    <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-[rgb(32,32,36)] p-6">
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -41,18 +74,7 @@ export default function App() {
       <UserCredentials />
       <NavbarMenu className="bg-[rgb(32,32,36)]">
         <NavbarMenuItem className="flex flex-col gap-10 p-6 ">
-          <Link className="flex w-full gap-2" href="#" size="lg">
-            <HomeIcon size={24} color="white" />{" "}
-            <p className="text-white">Home</p>
-          </Link>
-          <Link className="flex w-full gap-2" href="#" size="lg">
-            <Swords size={24} color="white" />{" "}
-            <p className="text-white">Library</p>
-          </Link>
-          <Link className="flex w-full gap-2" href="#" size="lg">
-            <ScrollText size={24} color="white" />{" "}
-            <p className="text-white">Wishlist</p>
-          </Link>
+          <NavContent />
         </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>

@@ -1,4 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+@layer utilities {
+  .primary-gradient {
+    background: linear-gradient(129deg, #0070F0 0%, #26BBFF 100%);
+  }
+}

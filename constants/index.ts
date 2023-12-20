@@ -1,19 +1,19 @@
 import { SidebarLink } from "@/types";
-
+import { HomeIcon, ScrollText, Swords } from "lucide-react";
 
 export const sidebarLinks: SidebarLink[] = [
   {
-    imgURL: "/assets/icons/home.svg",
+    icon: HomeIcon,
     route: "/",
     label: "Home",
   },
   {
-    imgURL: "/assets/icons/library.svg",
+    icon: Swords,
     route: "/library",
     label: "Library",
   },
   {
-    imgURL: "/assets/icons/wishlist.svg",
+    icon: ScrollText,
     route: "/wishlist",
     label: "Wishlist",
   },

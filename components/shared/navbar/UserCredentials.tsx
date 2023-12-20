@@ -8,12 +8,20 @@ const UserCredentials = () => {
       <SignedOut>
         <div className="flex gap-4">
           <Link href="/sign-in">
-            <Button size="sm" color="primary" variant="solid">
+            <Button
+              size="sm"
+              variant="solid"
+              className="bg-[#0EA5E9] text-white"
+            >
               Log in
             </Button>
           </Link>
           <Link href="/sign-up">
-            <Button size="sm" color="primary" variant="solid">
+            <Button
+              size="sm"
+              variant="solid"
+              className="bg-[#0EA5E9] text-white"
+            >
               Sign up
             </Button>
           </Link>

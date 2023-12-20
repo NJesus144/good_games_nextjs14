@@ -1,5 +1,11 @@
+import { LucideIcon } from 'lucide-react';
+
+
+
+
+
 export interface SidebarLink {
-  imgURL: string;
+  icon: LucideIcon;
   route: string;
   label: string;
 }
