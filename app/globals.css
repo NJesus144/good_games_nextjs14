@@ -4,6 +4,21 @@
 
 @layer utilities {
   .primary-gradient {
-    background: linear-gradient(129deg, #0070F0 0%, #26BBFF 100%);
+    background: linear-gradient(129deg, #0070f0 0%, #26bbff 100%);
+  }
+
+  .border-primary {
+    border-color: green;
+    background-color: green;
+  }
+
+  .border-secondary {
+    border-color: orange;
+    background-color: rgb(201, 131, 2);
+  }
+
+  .border-tertiary {
+    border-color: red;
+    font: red;
   }
 }

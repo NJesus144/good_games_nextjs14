@@ -4,7 +4,7 @@ import React from "react";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className="relative bg-[rgb(18,18,18)]">
+    <main className="relative bg-[#151515]">
       <Navbar />
       <div className="flex">
         <LeftSidebar />
