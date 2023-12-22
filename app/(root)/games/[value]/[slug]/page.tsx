@@ -4,8 +4,6 @@ import { getGamesByGenre, getGamesByPlatform } from "@/lib/services/Api";
 
 const Page = async ({ params }: { params: { value: string; slug: string } }) => {
  
-console.log(params.value, params.slug)
-
     let games;
     switch (params.value) {
       case "genre":
@@ -18,8 +16,6 @@ console.log(params.value, params.slug)
       default:
         return <div>404</div>;
     }
-
-  
 
   return (
     <div>
