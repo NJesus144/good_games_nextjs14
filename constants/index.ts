@@ -9,7 +9,7 @@ export const sidebarLinks: SidebarLink[] = [
   },
   {
     icon: Swords,
-    route: "/library",
+    route: "/my-library",
     label: "Library",
   },
   {

@@ -54,7 +54,7 @@ const NavContent = () => {
   );
 };
 
-export default function App() {
+export default function NavbarComponent() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   return (

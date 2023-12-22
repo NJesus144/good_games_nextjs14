@@ -1,5 +1,4 @@
-import { LucideIcon } from 'lucide-react';
-
+import { LucideIcon } from "lucide-react";
 
 export interface SidebarLink {
   icon: LucideIcon;
@@ -7,17 +6,16 @@ export interface SidebarLink {
   label: string;
 }
 
-export interface Platform {
+interface Platform {
   platform: {
     id: number;
     name: string;
     slug: string;
     image_background: string;
-
-  }
+  };
 }
 
-export interface Game {
+export interface Games {
   id: number;
   name: string;
   description: string;
@@ -27,4 +25,40 @@ export interface Game {
   released: string;
   metacritic: number;
   platforms: Platform[];
+}
+
+interface Store {
+  id: number;
+  store: {
+    id: number;
+    name: string;
+    slug: string;
+    domain: string;
+  };
+}
+interface Genre {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+interface Developers {
+  id: number;
+  name: string;
+  slug: string;
+  image_background: string;
+}
+
+export interface GameDetails {
+  id: number;
+  name: string;
+  description: string;
+  metacritic: number;
+  released: Date;
+  background_image: string;
+  background_image_additional: string;
+  developers: Developers[];
+  platforms: Platform[];
+  stores: Store[];
+  genres: Genre[];
 }
