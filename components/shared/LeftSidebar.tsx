@@ -41,8 +41,8 @@ const LeftSidebar = () => {
         );
       })}
       <div className="mt-6 flex flex-col gap-4">
-        <SelectFilter label="Select a genre" filters={GenresFilters} />
-        <SelectFilter label="Select a platform" filters={PlatformFilters} />
+        <SelectFilter value='RPG' label="Select a genre" filters={GenresFilters} />
+        <SelectFilter value='PC' label="Select a platform" filters={PlatformFilters} />
       </div>
     </section>
   );

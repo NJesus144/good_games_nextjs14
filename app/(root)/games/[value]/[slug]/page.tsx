@@ -1,6 +1,8 @@
 import React from "react";
 import { GameCard } from "@/components/shared/GameCard";
-import { getGamesByGenre, getGamesByPlatform } from "@/lib/services/Api";
+import { getGamesByGenre, getGamesByPlatform } from "@/lib/actions/api.action";
+
+
 
 const Page = async ({ params }: { params: { value: string; slug: string } }) => {
  

@@ -22,7 +22,7 @@ const NavContent = () => {
   const pathname = usePathname();
 
   return (
-    <section>
+    <section className="mt-10">
       {sidebarLinks.map((item) => {
         const isActive =
           (pathname.includes(item.route) && item.route.length > 1) ||
@@ -47,6 +47,7 @@ const NavContent = () => {
         );
       })}
       <SelectFilter
+        label="Select Genre"
         filters={GenresFilters}
         otherClasses="max-sm:block mt-4"
       />
@@ -58,7 +59,7 @@ export default function NavbarComponent() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   return (
-    <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-[#151515] p-6 ">
+    <Navbar onMenuOpenChange={setIsMenuOpen} className="bg-[#202024] p-6 ">
       <NavbarContent>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -66,8 +67,10 @@ export default function NavbarComponent() {
         />
         <NavbarBrand>
           <div className="flex">
-            <p className=" text-lg font-bold text-white">GG</p>
-            <span className=" text-lg font-bold text-blue-500">Easy</span>
+            <Link href="/">
+              <p className=" text-lg font-bold text-white">GG</p>
+              <span className=" text-lg font-bold text-blue-500">Easy</span>
+            </Link>
           </div>
         </NavbarBrand>
       </NavbarContent>

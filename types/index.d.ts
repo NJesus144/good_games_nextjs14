@@ -17,6 +17,7 @@ interface Platform {
 
 export interface Games {
   id: number;
+  slug: string;
   name: string;
   description: string;
   released: string;
@@ -61,4 +62,11 @@ export interface GameDetails {
   platforms: Platform[];
   stores: Store[];
   genres: Genre[];
+}
+
+export interface GamePerUrl {
+  count: number;
+  next?: string;
+  previous?: string;
+  results: Games[];
 }

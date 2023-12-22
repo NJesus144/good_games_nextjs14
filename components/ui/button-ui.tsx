@@ -2,6 +2,8 @@ import React from "react";
 import { Button } from "@nextui-org/react";
 
 interface Props {
+  onClick?: () => void;
+  isLoading?: boolean;
   variant?:
     | "solid"
     | "bordered"
@@ -28,9 +30,17 @@ export default function ButtonUi({
   children,
   otherStyle,
   color,
+  isLoading,
+  onClick
 }: Props) {
   return (
-    <Button variant={variant} color={color} className={`uppercase text-white rounded-md ${otherStyle}`}>
+    <Button
+      variant={variant}
+      color={color}
+      isLoading={isLoading}
+      className={`rounded-md uppercase text-white ${otherStyle}`}
+      onClick={onClick}
+    >
       {children}
     </Button>
   );

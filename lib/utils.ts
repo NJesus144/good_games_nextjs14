@@ -6,7 +6,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function changeRankMetacritic(metacritic: number) {
-  console.log(metacritic);
 
   if (metacritic >= 80) {
     return "border-primary";
