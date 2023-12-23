@@ -4,6 +4,7 @@ import { GameCard } from "@/components/shared/GameCard";
 import { useEffect, useState } from "react";
 import PaginationControls from "@/components/shared/paginationControls";
 import { Games } from "@/types";
+import SkeletonCardGame from "@/components/ui/skeletonCardGame";
 
 export default function Home() {
   const [page, setPage] = useState(1);
@@ -27,14 +28,23 @@ export default function Home() {
 
   return (
     <div>
-      <GameCard games={gamesData} />
-      <PaginationControls
-        page={page}
-        setPage={setPage}
-        totalPages={totalPages}
-        loading={loading}
-     
-      />
-    </div>
+    {gamesData.length === 0 ? (
+      <div className="grid grid-cols-3 gap-8">
+        {[1, 2, 3, 4, 5, 6].map((item) => (
+          <SkeletonCardGame key={item} />
+        ))}
+      </div>
+    ) : (
+      <>
+        <GameCard games={gamesData} />
+        <PaginationControls
+          page={page}
+          setPage={setPage}
+          totalPages={totalPages}
+          loading={loading}
+        />
+      </>
+    )}
+  </div>
   );
 }
