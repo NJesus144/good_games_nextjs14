@@ -1,5 +1,5 @@
 import React from "react";
-import SkeletonMoreDetails from "@/components/ui/skeletonMoreDetails";
+
 import SkeletonCardGame from "@/components/ui/skeletonCardGame";
 
 const loading = () => {

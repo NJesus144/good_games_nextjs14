@@ -9,6 +9,7 @@ import { Games } from "@/types";
 import Link from "next/link";
 
 export function GameCard({ games }: { games: Games[] }) {
+  console.log("games", games);
   return (
     <>
       <div className="ml-0 flex max-w-7xl flex-col items-center  gap-8  pb-20 sm:grid-cols-2 md:ml-24 md:grid  lg:grid-cols-2  xl:ml-48 xl:grid-cols-3">

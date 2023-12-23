@@ -16,32 +16,34 @@ export async function getGames(): Promise<Games[]> {
   }
 }
 
-export async function getGamesByGenre(slug: string): Promise<Games[]> {
+export async function getGamesByGenre(page: number, slug: string): Promise<GamePerUrl> {
   try {
     const respose = await fetch(
-      `https://api.rawg.io/api/games?key=${process.env.API_KEY}&genres=${slug}`
+      `https://api.rawg.io/api/games?key=${process.env.API_KEY}&page=${page}&genres=${slug}`
     );
 
     const data = await respose.json();
 
-    return data.results;
+    return data;
   } catch (error) {
     console.error("Error fetching data: ", error);
-    return [] as Games[];
+    return {} as GamePerUrl;
+
   }
 }
 
-export async function getGamesByPlatform(slug: string): Promise<Games[]> {
+export async function getGamesByPlatform(page: number, slug: string ): Promise<GamePerUrl> {
   try {
     const respose = await fetch(
-      `https://api.rawg.io/api/games?key=${process.env.API_KEY}&platforms=${slug}`
+      `https://api.rawg.io/api/games?key=${process.env.API_KEY}&page=${page}&platforms=${slug}`
     );
     const data = await respose.json();
 
-    return data.results;
+    return data;
   } catch (error) {
     console.error("Error fetching data: ", error);
-    return [] as Games[];
+    return {} as GamePerUrl;
+
   }
 }
 
