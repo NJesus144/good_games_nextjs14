@@ -5,8 +5,8 @@ import React from "react";
 const SkeletonMoreDetails = () => {
   return (
     <section className="mx-auto flex max-w-7xl flex-col gap-4  p-28 pb-20 text-white">
-      <div className="flex max-lg:flex-col max-lg:items-center max-lg:gap-6">
-        <div className="max-h-[500px] grow animate-pulse bg-gradient-to-r from-gray-400 max-lg:w-full max-lg:grow-0"></div>
+      <div className="flex rounded-lg shadow-xl max-lg:flex-col max-lg:items-center max-lg:gap-6">
+        <div className="max-h-[500px] grow animate-pulse bg-gradient-to-r from-zinc-500 max-lg:w-full max-lg:grow-0"></div>
 
         <div className="flex w-full max-w-sm grow-0 flex-col gap-4 px-6 max-lg:max-w-2xl max-sm:px-0">
           <div className="flex items-center rounded-lg">
