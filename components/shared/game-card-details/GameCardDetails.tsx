@@ -15,8 +15,7 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: GameDetails }) => {
   );
 
   return (
-    
-    <section className="mx-auto flex max-w-7xl flex-col gap-4  p-8 pb-20 text-white">
+    <section className="mx-auto flex max-w-7xl flex-col gap-4  p-12 pb-20 text-white">
       <div className="flex max-lg:flex-col max-lg:items-center max-lg:gap-6">
         <Image
           src={gameDetails.background_image}
