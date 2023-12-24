@@ -3,8 +3,9 @@ import React, { useState, useEffect } from "react";
 import { GameCard } from "@/components/shared/GameCard";
 import { getGamesByGenre, getGamesByPlatform } from "@/lib/actions/api.action";
 import PaginationControls from "@/components/shared/paginationControls";
-import { Games } from "@/types";
+import { GamesWithPrice } from "@/types";
 import SkeletonCardGame from "@/components/ui/skeletonCardGame";
+import { generateAndSetRandomPrice } from "@/lib/utils";
 
 // return (
 //   <div>
@@ -22,26 +23,36 @@ import SkeletonCardGame from "@/components/ui/skeletonCardGame";
 const Page = ({ params }: { params: { value: string; slug: string } }) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [gamesData, setGamesData] = useState<Games[]>([]);
+  const [gamesData, setGamesData] = useState<GamesWithPrice[]>([]);
   const [loading, setLoading] = useState(false);
 
   const itemsPerPage = 20;
 
   const getGamesPreSlug = async () => {
     setLoading(true);
+    let gamesWithPrices: GamesWithPrice[];
     let games;
     switch (params.value) {
       case "genre":
         games = await getGamesByGenre(page, params.slug);
         setTotalPages(Math.ceil(games.count / itemsPerPage));
-        setGamesData(games.results);
+
+        gamesWithPrices = games.results.map((game) => ({
+          ...game,
+          price: generateAndSetRandomPrice(game.id),
+        }));
+        setGamesData(gamesWithPrices);
         setLoading(false);
         break;
 
       case "platform":
         games = await getGamesByPlatform(page, params.slug);
         setTotalPages(Math.ceil(games.count / itemsPerPage));
-        setGamesData(games.results);
+        gamesWithPrices = games.results.map((game) => ({
+          ...game,
+          price: generateAndSetRandomPrice(game.id),
+        }));
+        setGamesData(gamesWithPrices);
         setLoading(false);
         break;
       default:
@@ -51,7 +62,6 @@ const Page = ({ params }: { params: { value: string; slug: string } }) => {
 
   useEffect(() => {
     getGamesPreSlug();
-    console.log("gamesData", gamesData);
   }, [page]);
   return (
     <div>

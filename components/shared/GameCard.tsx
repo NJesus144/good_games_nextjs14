@@ -1,15 +1,13 @@
-"use client";
 import * as React from "react";
-
 import { Card, CardFooter } from "@/components/ui/card";
 import { changeRankMetacritic } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { Games } from "@/types";
 import Link from "next/link";
+import { GamesWithPrice } from "@/types";
 
-export function GameCard({ games }: { games: Games[] }) {
-  console.log("games", games);
+export function GameCard({ games }: { games: GamesWithPrice[] }) {
+  console.log(games);
   return (
     <>
       <div className="ml-0 flex max-w-7xl flex-col items-center  gap-8  pb-20 sm:grid-cols-2 md:ml-24 md:grid  lg:grid-cols-2  xl:ml-48 xl:grid-cols-3">
@@ -40,8 +38,8 @@ export function GameCard({ games }: { games: Games[] }) {
                   </span>
                 </div>
                 <div className="flex w-full items-center justify-between">
-                  <Button>Add to car</Button>
-                  <span>{2345345}</span>
+                  <Button>Add to cart</Button>
+                  <span className="">{item.price}</span>
                 </div>
               </CardFooter>
             </Card>

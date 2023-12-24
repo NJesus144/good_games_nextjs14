@@ -64,9 +64,13 @@ export interface GameDetails {
   genres: Genre[];
 }
 
+export interface GamesWithPrice extends Games {
+  price: number | string;
+}
+
 export interface GamePerUrl {
   count: number;
   next?: string;
   previous?: string;
-  results: Games[];
+  results: GamesWithPrice[];
 }
