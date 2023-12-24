@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { GameCard } from "@/components/shared/GameCard";
+import { GameCard } from "@/components/shared/cards/GameCard";
 import { getGamesByGenre, getGamesByPlatform } from "@/lib/actions/api.action";
 import PaginationControls from "@/components/shared/paginationControls";
 import { GamesWithPrice } from "@/types";

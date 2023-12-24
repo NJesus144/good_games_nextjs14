@@ -4,6 +4,7 @@ import "./globals.css";
 import React from "react";
 import { ProviderNextUI } from "@/providers/ProviderNextUI";
 import { ClerkProvider } from "@clerk/nextjs";
+import { FavoriteProvider } from "@/contexts/favoriteContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +29,9 @@ export default function RootLayout({
             },
           }}
         >
-          <ProviderNextUI>{children}</ProviderNextUI>
+          <FavoriteProvider>
+            <ProviderNextUI>{children}</ProviderNextUI>
+          </FavoriteProvider>
         </ClerkProvider>
       </body>
     </html>

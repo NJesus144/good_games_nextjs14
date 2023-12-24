@@ -1,4 +1,4 @@
-import GameCardDetails from "@/components/shared/game-card-details/GameCardDetails";
+import GameCardDetails from "@/components/shared/cards/GameCardDetails";
 import React from "react";
 import { getGameDetaislById } from "@/lib/actions/api.action";
 

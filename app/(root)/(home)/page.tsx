@@ -1,7 +1,7 @@
 "use client";
 
 import { getNextPage } from "@/lib/actions/api.action";
-import { GameCard } from "@/components/shared/GameCard";
+import { GameCard } from "@/components/shared/cards/GameCard";
 import { useEffect, useState } from "react";
 import PaginationControls from "@/components/shared/paginationControls";
 
