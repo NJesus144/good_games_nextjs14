@@ -5,7 +5,6 @@ import React from "react";
 import { ProviderNextUI } from "@/providers/ProviderNextUI";
 import { ClerkProvider } from "@clerk/nextjs";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -21,19 +20,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-       
-          <ClerkProvider
-            appearance={{
-              elements: {
-                formButtonPrimary: "primary-gradient",
-                footerActionLink:
-                  "primary-text-gradient hover:text-primary-500",
-              },
-            }}
-          >
-            <ProviderNextUI>{children}</ProviderNextUI>
-          </ClerkProvider>
-       
+        <ClerkProvider
+          appearance={{
+            elements: {
+              formButtonPrimary: "primary-gradient",
+              footerActionLink: "primary-text-gradient hover:text-primary-500",
+            },
+          }}
+        >
+          <ProviderNextUI>{children}</ProviderNextUI>
+        </ClerkProvider>
       </body>
     </html>
   );

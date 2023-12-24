@@ -7,19 +7,6 @@ import { GamesWithPrice } from "@/types";
 import SkeletonCardGame from "@/components/ui/skeletonCardGame";
 import { generateAndSetRandomPrice } from "@/lib/utils";
 
-// return (
-//   <div>
-//     <GameCard games={gamesData} />
-//     <PaginationControls
-//       page={page}
-//       setPage={setPage}
-//       totalPages={totalPages}
-//       loading={loading}
-
-//     />
-//   </div>
-// );
-
 const Page = ({ params }: { params: { value: string; slug: string } }) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -28,35 +15,41 @@ const Page = ({ params }: { params: { value: string; slug: string } }) => {
 
   const itemsPerPage = 20;
 
-  const getGamesPreSlug = async () => {
+  interface FetchFunctionProps {
+    fetchFunction: (
+      page: number,
+      slug: string
+    ) => Promise<{ count: number; results: GamesWithPrice[] }>;
+  }
+
+  const loadGames = async ({ fetchFunction }: FetchFunctionProps) => {
     setLoading(true);
-    let gamesWithPrices: GamesWithPrice[];
-    let games;
+    try {
+      const games = await fetchFunction(page, params.slug);
+      setTotalPages(Math.ceil(games.count / itemsPerPage));
+      const gamesWithPrices = games.results.map((game) => ({
+        ...game,
+        price: generateAndSetRandomPrice(game.id),
+      }));
+      setGamesData(gamesWithPrices);
+    } catch (error) {
+      console.log("Error fetching data", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getGamesPreSlug = async () => {
     switch (params.value) {
       case "genre":
-        games = await getGamesByGenre(page, params.slug);
-        setTotalPages(Math.ceil(games.count / itemsPerPage));
-
-        gamesWithPrices = games.results.map((game) => ({
-          ...game,
-          price: generateAndSetRandomPrice(game.id),
-        }));
-        setGamesData(gamesWithPrices);
-        setLoading(false);
+        await loadGames({ fetchFunction: getGamesByGenre });
         break;
 
       case "platform":
-        games = await getGamesByPlatform(page, params.slug);
-        setTotalPages(Math.ceil(games.count / itemsPerPage));
-        gamesWithPrices = games.results.map((game) => ({
-          ...game,
-          price: generateAndSetRandomPrice(game.id),
-        }));
-        setGamesData(gamesWithPrices);
-        setLoading(false);
+        await loadGames({ fetchFunction: getGamesByPlatform });
         break;
       default:
-        return <div>404</div>;
+        throw new Error("Invalid value");
     }
   };
 

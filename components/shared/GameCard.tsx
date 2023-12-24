@@ -7,7 +7,6 @@ import Link from "next/link";
 import { GamesWithPrice } from "@/types";
 
 export function GameCard({ games }: { games: GamesWithPrice[] }) {
-  console.log(games);
   return (
     <>
       <div className="ml-0 flex max-w-7xl flex-col items-center  gap-8  pb-20 sm:grid-cols-2 md:ml-24 md:grid  lg:grid-cols-2  xl:ml-48 xl:grid-cols-3">
@@ -39,7 +38,7 @@ export function GameCard({ games }: { games: GamesWithPrice[] }) {
                 </div>
                 <div className="flex w-full items-center justify-between">
                   <Button>Add to cart</Button>
-                  <span className="">{item.price}</span>
+                  <span>R$ {String(item.price).replace(".", ",")}</span>
                 </div>
               </CardFooter>
             </Card>

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { GameDetails } from "@/types";
 import Image from "next/image";
@@ -6,13 +7,20 @@ import { Divider } from "@nextui-org/react";
 import { Badge } from "@/components/ui/badge";
 import { CATEGORY_ICON } from "@/constants/categoryIcons";
 import { changeRankMetacritic } from "@/lib/utils";
-// import Image from "next/image";
+
 
 const GameCardDetails = ({ gameDetails }: { gameDetails: GameDetails }) => {
   const developer = gameDetails.developers.map((developer) => developer.name);
   const platforms = gameDetails.platforms.map(
     (platform) => platform.platform.name
   );
+
+
+  const price = localStorage
+    .getItem(`price_${gameDetails.id}`)
+    ?.replace(".", ",");
+
+  
 
   return (
     <section className="mx-auto flex max-w-7xl flex-col gap-4  p-12 pb-20 text-white">
@@ -26,12 +34,13 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: GameDetails }) => {
           className="grow object-cover max-lg:w-full max-lg:grow-0 "
         />
         <div className="flex w-full max-w-sm grow-0 flex-col gap-4 px-6 max-lg:max-w-2xl max-sm:px-0">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col items-center gap-2">
             <h1 className="text-4xl font-bold max-sm:text-3xl">
               {gameDetails.name}
             </h1>
-
-            <h2>R$ 200</h2>
+            <div className="flex gap-2">
+              <h2 className="text-lg ">R$ {price}</h2>
+            </div>
           </div>
 
           <div className="flex flex-col gap-4 ">

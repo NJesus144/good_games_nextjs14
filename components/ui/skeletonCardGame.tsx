@@ -5,7 +5,7 @@ import { Button } from "@nextui-org/react";
 
 export default function SkeletonCardGame() {
   return (
-    <div className="ml-0 flex max-w-7xl flex-col items-center  gap-8   pb-20 sm:grid-cols-2  md:ml-24  md:grid lg:grid-cols-2 xl:ml-48 xl:grid-cols-3">
+    
       <Card className="mt-12 h-[350px] w-[340px] max-w-[340px] animate-pulse  rounded-lg border-0 max-lg:w-[280px] max-md:mt-20">
         <div className="h-[250px] w-full animate-pulse rounded-lg bg-gradient-to-r from-zinc-700"></div>
 
@@ -20,6 +20,6 @@ export default function SkeletonCardGame() {
           </div>
         </CardFooter>
       </Card>
-    </div>
+   
   );
 }

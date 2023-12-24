@@ -15,21 +15,30 @@ export function changeRankMetacritic(metacritic: number) {
   }
 }
 
-export const generateAndSetRandomPrice = (itemId: number) => {
-  const randomPrice = Math.random() * (200 - 80) + 80;
+const generateRandomPrice = () => {
+  return (Math.random() * (200 - 80) + 80).toFixed(2);
+};
 
+export const generateAndSetRandomPrice = (itemId: number) => {
   const storedPrice = localStorage.getItem(`price_${itemId}`);
 
-  const storedPriceAsNumber = storedPrice ? parseFloat(storedPrice) : 0;
+  if (storedPrice === null) {
+    const randomPrice = generateRandomPrice();
+    const formattedRandomPrice = new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(randomPrice);
 
-  if (!storedPrice) {
-    localStorage.setItem(`price_${itemId}`, randomPrice.toFixed(2));
+    localStorage.setItem(`price_${itemId}`, formattedRandomPrice);
+
+    return formattedRandomPrice;
   }
 
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(storedPriceAsNumber || randomPrice);
+  return storedPrice;
 };
+
+
+
+

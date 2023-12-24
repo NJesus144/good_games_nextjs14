@@ -1,4 +1,5 @@
 "use client";
+
 import { getNextPage } from "@/lib/actions/api.action";
 import { GameCard } from "@/components/shared/GameCard";
 import { useEffect, useState } from "react";
@@ -16,35 +17,35 @@ export default function Home() {
 
   const itensPerPage = 20;
 
-  const getGamesPerUrl = async () => {
-    setLoading(true);
-    const games = await getNextPage(page);
-    setTotalPages(Math.ceil(games.count / itensPerPage));
-
-    const gamesWithPrices: GamesWithPrice[] = games.results.map((game) => ({
-      ...game,
-      price: generateAndSetRandomPrice(game.id),
-    }));
-
-    gamesWithPrices.forEach((game) => {
-      console.log(`Preço para ${game.name}: $${game.price}`);
-    });
-
-    setGamesData(gamesWithPrices);
-
-    setLoading(false);
-  };
-
   useEffect(() => {
-    getGamesPerUrl();
+    setLoading(true);
+    async function getGames() {
+      try {
+        const games = await getNextPage(page);
+        setTotalPages(Math.ceil(games.count / itensPerPage));
+
+        const gamesWithPrices: GamesWithPrice[] = games.results.map((game) => ({
+          ...game,
+          price: generateAndSetRandomPrice(game.id),
+        }));
+
+        setGamesData(gamesWithPrices);
+      } catch (error) {
+        console.log("Error fetching data", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getGames();
   }, [page]);
 
   return (
     <div>
       {gamesData.length === 0 ? (
-        <div className="grid grid-cols-3 gap-8">
-          {[1, 2, 3, 4, 5, 6].map((item) => (
-            <SkeletonCardGame key={item} />
+        <div className="ml-0 flex max-w-7xl flex-col items-center  gap-8  pb-20 sm:grid-cols-2 md:ml-24 md:grid  lg:grid-cols-2  xl:ml-48 xl:grid-cols-3">
+          {Array.from({ length: itensPerPage }).map((_, index) => (
+            <SkeletonCardGame key={index} />
           ))}
         </div>
       ) : (
