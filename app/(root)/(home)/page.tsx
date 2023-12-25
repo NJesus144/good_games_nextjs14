@@ -9,6 +9,7 @@ import SkeletonCardGame from "@/components/ui/skeletonCardGame";
 import { generateAndSetRandomPrice } from "@/lib/utils";
 import { GamesWithPrice } from "@/types";
 
+
 export default function Home() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -42,6 +43,7 @@ export default function Home() {
 
   return (
     <div>
+      
       {gamesData.length === 0 ? (
         <div className="ml-0 flex max-w-7xl flex-col items-center  gap-8  pb-20 sm:grid-cols-2 md:ml-24 md:grid  lg:grid-cols-2  xl:ml-48 xl:grid-cols-3">
           {Array.from({ length: itensPerPage }).map((_, index) => (

@@ -4,25 +4,14 @@ import { changeRankMetacritic } from "@/lib/utils";
 import Image from "next/image";
 
 import Link from "next/link";
-import { GamesWithPrice, Games } from "@/types";
+import { GamesWithPrice} from "@/types";
 import { useFavorite } from "@/providers/useFavorite";
 import ButtonUi from "@/components/ui/button-ui";
 import { PlusIcon, ShoppingCartIcon } from "lucide-react";
 
 export function GameCard({ games }: { games: GamesWithPrice[] }) {
-  const { favorites, setFavorites } = useFavorite();
+  const { addToWishlist, removeFromWishlist, isFavorite } = useFavorite();
 
-  const addToWishlist = (game: GamesWithPrice) => {
-    setFavorites([...favorites, game]);
-  };
-
-  const removeFromWishlist = (game: Games) => {
-    setFavorites(favorites.filter((item) => item.id !== game.id));
-  };
-
-  const isFavorite = (game: Games) => {
-    return favorites.some((item) => item.id === game.id);
-  };
 
   return (
     <>

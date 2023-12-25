@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
-import { GameDetails } from "@/types";
+import { GameDetails, GamesWithPrice } from "@/types";
+import { useFavorite } from "@/providers/useFavorite";
+
 import Image from "next/image";
 import ButtonUi from "@/components/ui/button-ui";
 import { Divider } from "@nextui-org/react";
@@ -8,20 +10,25 @@ import { Badge } from "@/components/ui/badge";
 import { CATEGORY_ICON } from "@/constants/categoryIcons";
 import { changeRankMetacritic } from "@/lib/utils";
 
+interface NewGamesDetails extends GamesWithPrice, GameDetails {
+  price: number;
+  slug: string;
+  rating: number;
+}
 
-const GameCardDetails = ({ gameDetails }: { gameDetails: GameDetails }) => {
+const GameCardDetails = ({ gameDetails }: { gameDetails: NewGamesDetails }) => {
+  const { addToWishlist, isFavorite, removeFromWishlist } = useFavorite();
+
   const developer = gameDetails.developers.map((developer) => developer.name);
   const platforms = gameDetails.platforms.map(
     (platform) => platform.platform.name
   );
 
-
   const price = localStorage
     .getItem(`price_${gameDetails.id}`)
     ?.replace(".", ",");
 
-  
-
+ 
   return (
     <section className="mx-auto flex max-w-7xl flex-col gap-4  p-12 pb-20 text-white">
       <div className="flex max-lg:flex-col max-lg:items-center max-lg:gap-6">
@@ -50,8 +57,18 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: GameDetails }) => {
             <ButtonUi variant="bordered" otherStyle="p-6 hover:bg-[#2e2e2e]">
               Adicionar ao Carrinho
             </ButtonUi>
-            <ButtonUi variant="bordered" otherStyle="p-2 hover:bg-[#2e2e2e]">
-              Adicionar a lista de desejos
+            <ButtonUi
+              variant="bordered"
+              otherStyle="p-2 hover:bg-[#2e2e2e] "
+              onClick={() => {
+                if (isFavorite(gameDetails)) {
+                  removeFromWishlist(gameDetails);
+                } else {
+                  addToWishlist(gameDetails);
+                }
+              }}
+            >
+              {isFavorite(gameDetails) ? "On the list" : "Wishlist"}
             </ButtonUi>
           </div>
           <div className="flex justify-between gap-2 max-sm:flex-col max-sm:text-sm">

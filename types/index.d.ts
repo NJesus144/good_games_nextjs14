@@ -20,10 +20,9 @@ export interface Games {
   slug: string;
   name: string;
   description: string;
-  released: string;
+  released: Date;
   background_image: string;
   rating: number;
-  released: string;
   metacritic: number;
   platforms: Platform[];
 }
