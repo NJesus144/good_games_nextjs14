@@ -70,7 +70,7 @@ export interface GameDetails {
 }
 
 export interface GamesWithPrice extends Games {
-  price: number | string;
+  price: number;
 }
 
 export interface GamePerUrl {

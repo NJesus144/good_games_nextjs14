@@ -85,10 +85,14 @@ const Searchbar = () => {
         </div>
       </form>
       {showResults && (
-        <div className="scrollbar absolute inset-x-0 top-[56px]    max-h-80 overflow-y-auto rounded-xl bg-white shadow-xl">
+        <div className="scrollbar absolute inset-x-0 top-[56px] max-h-80 overflow-y-auto rounded-xl bg-white shadow-xl">
           <div className="flex flex-col gap-2 p-4">
             {games.map((game) => (
-              <Link key={game.id} href={`/more-details/${game.slug}`}>
+              <Link
+                key={game.id}
+                href={`/more-details/${game.slug}`}
+                className="hover:bg-[#c9c9c9] p-1 px-2 rounded-md w-full  ease-in-out duration-300"
+              >
                 {game.name}
               </Link>
             ))}

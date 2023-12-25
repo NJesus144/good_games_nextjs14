@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import {  NewGamesDetails } from "@/types";
+import { NewGamesDetails } from "@/types";
 import { useFavorite } from "@/providers/useFavorite";
 
 import Image from "next/image";
@@ -9,11 +9,11 @@ import { Divider } from "@nextui-org/react";
 import { Badge } from "@/components/ui/badge";
 import { CATEGORY_ICON } from "@/constants/categoryIcons";
 import { changeRankMetacritic } from "@/lib/utils";
-
-
+import { useCart } from "@/providers/useCart";
 
 const GameCardDetails = ({ gameDetails }: { gameDetails: NewGamesDetails }) => {
   const { addToWishlist, isFavorite, removeFromWishlist } = useFavorite();
+  const { addGameIntoCart } = useCart();
 
   const developer = gameDetails.developers.map((developer) => developer.name);
   const platforms = gameDetails.platforms.map(
@@ -24,7 +24,6 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: NewGamesDetails }) => {
     .getItem(`price_${gameDetails.id}`)
     ?.replace(".", ",");
 
-  
   return (
     <section className="mx-auto flex max-w-7xl flex-col gap-4  p-12 pb-20 text-white">
       <div className="flex max-lg:flex-col max-lg:items-center max-lg:gap-6">
@@ -48,10 +47,14 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: NewGamesDetails }) => {
 
           <div className="flex flex-col gap-4 ">
             <ButtonUi otherStyle="w-full p-6 " color="primary">
-              Compre Agora
+              Buy Now
             </ButtonUi>
-            <ButtonUi variant="bordered" otherStyle="p-6 hover:bg-[#2e2e2e]">
-              Adicionar ao Carrinho
+            <ButtonUi
+              variant="bordered"
+              otherStyle="p-6 hover:bg-[#2e2e2e]"
+              onClick={() => addGameIntoCart(gameDetails)}
+            >
+              Add to Cart
             </ButtonUi>
             <ButtonUi
               variant="bordered"

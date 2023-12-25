@@ -13,10 +13,11 @@ const Page = ({ params }: { params: { value: string; slug: string } }) => {
   const [gamesData, setGamesData] = useState<GamesWithPrice[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const itemsPerPage = 20;
+  const itemsPerPage = 21;
 
   interface FetchFunctionProps {
     fetchFunction: (
+      itemsPerPage: number,
       page: number,
       slug: string
     ) => Promise<{ count: number; results: GamesWithPrice[] }>;
@@ -25,7 +26,7 @@ const Page = ({ params }: { params: { value: string; slug: string } }) => {
   const loadGames = async ({ fetchFunction }: FetchFunctionProps) => {
     setLoading(true);
     try {
-      const games = await fetchFunction(page, params.slug);
+      const games = await fetchFunction(itemsPerPage, page, params.slug);
       setTotalPages(Math.ceil(games.count / itemsPerPage));
       const gamesWithPrices = games.results.map((game) => ({
         ...game,

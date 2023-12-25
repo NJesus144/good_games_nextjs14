@@ -15,11 +15,11 @@ export function changeRankMetacritic(metacritic: number) {
   }
 }
 
-const generateRandomPrice = () => {
-  return (Math.random() * (200 - 80) + 80).toFixed(2);
+const generateRandomPrice = (): number => {
+  return +(Math.random() * (200 - 80) + 80).toFixed(2);
 };
 
-export const generateAndSetRandomPrice = (itemId: number) => {
+export const generateAndSetRandomPrice = (itemId: number): number => {
   const storedPrice = localStorage.getItem(`price_${itemId}`);
 
   if (storedPrice === null) {
@@ -33,11 +33,36 @@ export const generateAndSetRandomPrice = (itemId: number) => {
 
     localStorage.setItem(`price_${itemId}`, formattedRandomPrice);
 
-    return formattedRandomPrice;
+    return randomPrice;
   }
 
-  return storedPrice;
+  return +storedPrice;
 };
+
+
+// const generateRandomPrice = () => {
+//   return (Math.random() * (200 - 80) + 80).toFixed(2);
+// };
+
+// export const generateAndSetRandomPrice = (itemId: number) => {
+//   const storedPrice = localStorage.getItem(`price_${itemId}`);
+
+//   if (storedPrice === null) {
+//     const randomPrice = generateRandomPrice();
+//     const formattedRandomPrice = new Intl.NumberFormat("pt-BR", {
+//       style: "currency",
+//       currency: "BRL",
+//       minimumFractionDigits: 2,
+//       maximumFractionDigits: 2,
+//     }).format(randomPrice);
+
+//     localStorage.setItem(`price_${itemId}`, formattedRandomPrice);
+
+//     return formattedRandomPrice;
+//   }
+
+//   return storedPrice;
+// };
 
 
 

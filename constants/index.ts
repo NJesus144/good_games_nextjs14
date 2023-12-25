@@ -1,5 +1,5 @@
 import { SidebarLink } from "@/types";
-import { HomeIcon, ScrollText, Swords } from "lucide-react";
+import { HomeIcon, ScrollText, ShoppingCart, Swords } from "lucide-react";
 
 export const sidebarLinks: SidebarLink[] = [
   {
@@ -16,5 +16,10 @@ export const sidebarLinks: SidebarLink[] = [
     icon: ScrollText,
     route: "/wishlist",
     label: "Wishlist",
+  },
+  {
+    icon: ShoppingCart,
+    route: "/cart",
+    label: "Cart",
   },
 ];

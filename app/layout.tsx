@@ -1,10 +1,13 @@
+import React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import React from "react";
+
 import { ProviderNextUI } from "@/providers/ProviderNextUI";
 import { ClerkProvider } from "@clerk/nextjs";
-import { FavoriteProvider } from "@/contexts/favoriteContext";
+
+import { FavoriteProvider } from "@/contexts/FavoriteContext";
+import { CartProvider } from "@/contexts/CartContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,9 +32,11 @@ export default function RootLayout({
             },
           }}
         >
-          <FavoriteProvider>
-            <ProviderNextUI>{children}</ProviderNextUI>
-          </FavoriteProvider>
+          <CartProvider>
+            <FavoriteProvider>
+              <ProviderNextUI>{children}</ProviderNextUI>
+            </FavoriteProvider>
+          </CartProvider>
         </ClerkProvider>
       </body>
     </html>
