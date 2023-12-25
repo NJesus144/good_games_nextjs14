@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { GameDetails, GamesWithPrice } from "@/types";
+import {  NewGamesDetails } from "@/types";
 import { useFavorite } from "@/providers/useFavorite";
 
 import Image from "next/image";
@@ -10,11 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { CATEGORY_ICON } from "@/constants/categoryIcons";
 import { changeRankMetacritic } from "@/lib/utils";
 
-interface NewGamesDetails extends GamesWithPrice, GameDetails {
-  price: number;
-  slug: string;
-  rating: number;
-}
+
 
 const GameCardDetails = ({ gameDetails }: { gameDetails: NewGamesDetails }) => {
   const { addToWishlist, isFavorite, removeFromWishlist } = useFavorite();
@@ -28,7 +24,7 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: NewGamesDetails }) => {
     .getItem(`price_${gameDetails.id}`)
     ?.replace(".", ",");
 
- 
+  
   return (
     <section className="mx-auto flex max-w-7xl flex-col gap-4  p-12 pb-20 text-white">
       <div className="flex max-lg:flex-col max-lg:items-center max-lg:gap-6">

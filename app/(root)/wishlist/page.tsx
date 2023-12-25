@@ -9,7 +9,7 @@ const Page = () => {
 
   return (
     <>
-      <div className="ml-40 mt-5 text-6xl font-semibold text-white">
+      <div className="ml-0 mt-5 text-6xl xl:ml-48 md:ml-24 font-semibold text-white">
         <Title>Wishlist</Title>
       </div>
 

@@ -27,9 +27,9 @@ export function PaginationControls({
   };
 
   return (
-    <div className="flex items-center justify-center gap-4 py-4">
+    <div className=" ml-0 flex items-center justify-center gap-4 mt-8 xl:ml-48 md:ml-24">
       <ButtonUi
-        otherStyle="bg-slate-500 bg-transparente" 
+        otherStyle="bg-slate-500 bg-transparente"
         isLoading={loading}
         onClick={onLeftClickHandler}
       >

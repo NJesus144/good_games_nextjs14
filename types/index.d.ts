@@ -48,6 +48,12 @@ interface Developers {
   slug: string;
   image_background: string;
 }
+export interface NewGamesDetails extends GamesWithPrice, GameDetails {
+  price: number;
+  slug: string;
+  rating: number;
+}
+
 
 export interface GameDetails {
   id: number;

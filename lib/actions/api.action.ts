@@ -1,5 +1,5 @@
 "use server";
-import { GameDetails, GamePerUrl, Games } from "@/types";
+import { GamePerUrl, Games, NewGamesDetails } from "@/types";
 
 export async function getGames(): Promise<Games[]> {
   try {
@@ -51,7 +51,7 @@ export async function getGamesByPlatform(
   }
 }
 
-export async function getGameDetaislById(slug: string): Promise<GameDetails> {
+export async function getGameDetaislById(slug: string): Promise<NewGamesDetails> {
   try {
     const respose = await fetch(
       `https://api.rawg.io/api/games/${slug}?key=${process.env.API_KEY}`
@@ -61,7 +61,7 @@ export async function getGameDetaislById(slug: string): Promise<GameDetails> {
     return data;
   } catch (error) {
     console.error("Error fetching data: ", error);
-    return {} as GameDetails;
+    return {} as NewGamesDetails;
   }
 }
 // grand-theft-auto-v
@@ -80,10 +80,10 @@ export async function getGamesBySearch(slug: string): Promise<Games[]> {
   } 
 }
 
-export async function getNextPage(page: number): Promise<GamePerUrl> {
+export async function getNextPage(page: number, size: number): Promise<GamePerUrl> {
   try {
     const respose = await fetch(
-      `https://api.rawg.io/api/games?key=${process.env.API_KEY}&page=${page}`
+      `https://api.rawg.io/api/games?page_size=${size}&key=${process.env.API_KEY}&page=${page}`
     );
 
     const data = await respose.json();

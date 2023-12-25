@@ -1,4 +1,5 @@
 "use client";
+import { generateAndSetRandomPrice } from "@/lib/utils";
 import { GamesWithPrice } from "@/types";
 import React, { createContext, useState, ReactNode, useEffect } from "react";
 
@@ -22,7 +23,6 @@ export function FavoriteProvider({ children }: FavoriteProviderProps) {
 
     if (storagedFavorites) return JSON.parse(storagedFavorites);
     return [];
-     
   });
 
   useEffect(() => {
@@ -30,11 +30,15 @@ export function FavoriteProvider({ children }: FavoriteProviderProps) {
   }, [favorites]);
 
   const addToWishlist = (game: GamesWithPrice) => {
-    setFavorites([...favorites, game]);
+    const gamesPrice = {
+      ...game,
+      price: generateAndSetRandomPrice(game.id),
+    };
+
+    setFavorites([...favorites, gamesPrice]);
   };
 
   const removeFromWishlist = (game: GamesWithPrice) => {
-    console.log('game', game)
     setFavorites(favorites.filter((item) => item.id !== game.id));
   };
 
