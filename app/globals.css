@@ -3,11 +3,34 @@
 @tailwind utilities;
 
 @layer utilities {
+  /* Adicione esses estilos para personalizar a barra de rolagem */
+  .scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f4f4f4; /* cor da barra e da alça */
+  }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background-color: #f4f4f4;
+    border-radius: 4px;
+
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+
   .primary-gradient {
     background: linear-gradient(129deg, #0070f0 0%, #26bbff 100%);
   }
-
-
 
   .border-primary {
     border-color: green;

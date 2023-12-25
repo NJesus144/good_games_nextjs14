@@ -6,7 +6,6 @@ import {
   Navbar,
   NavbarBrand,
   NavbarContent,
-  NavbarItem,
   Link,
   NavbarMenu,
   NavbarMenuItem,
@@ -17,6 +16,7 @@ import { sidebarLinks } from "@/constants";
 import UserCredentials from "./UserCredentials";
 import SelectFilter from "../SelectFilter";
 import { GenresFilters } from "@/constants/filters";
+import Searchbar from "../Searchbar";
 
 const NavContent = () => {
   const pathname = usePathname();
@@ -76,9 +76,7 @@ export default function NavbarComponent() {
       </NavbarContent>
 
       <NavbarContent className="hidden gap-4 sm:flex" justify="center">
-        <NavbarItem>
-          <input type="text" />
-        </NavbarItem>
+        <Searchbar />
       </NavbarContent>
       <UserCredentials />
       <NavbarMenu className="bg-[rgb(32,32,36)]">
