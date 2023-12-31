@@ -4,13 +4,13 @@ import { changeRankMetacritic } from "@/lib/utils";
 import Image from "next/image";
 
 import Link from "next/link";
-import { GamesWithPrice } from "@/types";
 import { useFavorite } from "@/providers/useFavorite";
 import ButtonUi from "@/components/ui/button-ui";
 import { PlusIcon, ShoppingCartIcon } from "lucide-react";
 import { useCart } from "@/providers/useCart";
+import { Game } from "@/contexts/CartContext";
 
-export function GameCard({ games }: { games: GamesWithPrice[] }) {
+export function GameCard({ games }: { games: Game[] }) {
   const { cart, addGameIntoCart } = useCart();
 
   const { addToWishlist, removeFromWishlist, isFavorite } = useFavorite();
@@ -24,14 +24,8 @@ export function GameCard({ games }: { games: GamesWithPrice[] }) {
           return (
             <Card
               key={item.id}
-              className="mt-12 h-[350px] relative  w-[340px] max-w-[340px] border-0  text-white max-lg:w-[280px] max-md:mt-20"
+              className="relative mt-12 h-[350px]  w-[340px] max-w-[340px] border-0  text-white max-lg:w-[280px] max-md:mt-20"
             >
-              {gameExists && (
-                <span className="absolute top-[-0.5rem] left-[-0.5rem] bg-red-600 w-8 h-8 rounded-full flex items-center justify-center text-lg">
-                  {gameExists.quantity}
-                </span>
-              )}
-
               <Image
                 src={item.background_image}
                 alt={item.name}
@@ -41,7 +35,7 @@ export function GameCard({ games }: { games: GamesWithPrice[] }) {
                 className="h-[250px] w-full rounded-t-lg object-cover"
               />
 
-              <CardFooter className="flex h-full max-h-[190px] flex-col items-start  justify-between gap-4 rounded-b-lg bg-[#202020] p-2 px-4 py-8  max-lg:py-0  max-lg:justify-center">
+              <CardFooter className="flex h-full max-h-[190px] flex-col items-start  justify-between gap-4 rounded-b-lg bg-[#202020] p-2 px-4 py-8  max-lg:justify-center  max-lg:py-0">
                 <div className="flex w-full items-center justify-between">
                   <h3 className="text-left text-xl font-bold max-md:text-base">
                     {item.name}
@@ -64,13 +58,24 @@ export function GameCard({ games }: { games: GamesWithPrice[] }) {
                     R$ {String(item.price).replace(".", ",")}
                   </span>
                 </div>
+
                 <div className="flex w-full items-center justify-between  max-lg:flex-col-reverse max-lg:gap-1">
-                  <ButtonUi
-                    otherStyle="bg-sky-500 max-lg:w-full "
-                    onClick={() => addGameIntoCart(item)}
-                  >
-                    <ShoppingCartIcon size={20} />
-                  </ButtonUi>
+                  {!gameExists ? (
+                    <ButtonUi
+                      color="primary"
+                      otherStyle=" w-[100px] max-lg:w-full "
+                      onClick={() => addGameIntoCart(item)}
+                    >
+                      <ShoppingCartIcon size={20} />
+                    </ButtonUi>
+                  ) : (
+                    <ButtonUi
+                      color="primary"
+                      otherStyle=" max-lg:w-full w-[100px]"
+                    >
+                      <Link href="/cart">In Cart</Link>
+                    </ButtonUi>
+                  )}
                   <ButtonUi
                     variant="bordered"
                     otherStyle="hover:bg-[#2e2e2e] max-lg:w-full"

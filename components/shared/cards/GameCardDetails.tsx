@@ -10,15 +10,18 @@ import { Badge } from "@/components/ui/badge";
 import { CATEGORY_ICON } from "@/constants/categoryIcons";
 import { changeRankMetacritic } from "@/lib/utils";
 import { useCart } from "@/providers/useCart";
+import Link from "next/link";
 
 const GameCardDetails = ({ gameDetails }: { gameDetails: NewGamesDetails }) => {
   const { addToWishlist, isFavorite, removeFromWishlist } = useFavorite();
-  const { addGameIntoCart } = useCart();
+  const { cart, addGameIntoCart } = useCart();
 
-  const developer = gameDetails.developers.map((developer) => developer.name);
+  const developer = gameDetails.developers?.map((developer) => developer.name);
   const platforms = gameDetails.platforms.map(
     (platform) => platform.platform.name
   );
+
+  const gameExists = cart.find((game) => game.id === gameDetails.id);
 
   const price = localStorage
     .getItem(`price_${gameDetails.id}`)
@@ -49,13 +52,26 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: NewGamesDetails }) => {
             <ButtonUi otherStyle="w-full p-6 " color="primary">
               Buy Now
             </ButtonUi>
-            <ButtonUi
-              variant="bordered"
-              otherStyle="p-6 hover:bg-[#2e2e2e]"
-              onClick={() => addGameIntoCart(gameDetails)}
-            >
-              Add to Cart
-            </ButtonUi>
+
+            {!gameExists ? (
+              <ButtonUi
+                variant="bordered"
+                otherStyle="p-6 hover:bg-[#2e2e2e]"
+                onClick={() => addGameIntoCart(gameDetails)}
+              >
+                Add to Cart
+              </ButtonUi>
+            ) : (
+              <Link href="/cart">
+                <ButtonUi
+                  variant="bordered"
+                  otherStyle="p-6 hover:bg-[#2e2e2e] w-full"
+                >
+                  In Cart
+                </ButtonUi>
+              </Link>
+            )}
+
             <ButtonUi
               variant="bordered"
               otherStyle="p-2 hover:bg-[#2e2e2e] "
@@ -72,7 +88,7 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: NewGamesDetails }) => {
           </div>
           <div className="flex justify-between gap-2 max-sm:flex-col max-sm:text-sm">
             <span className="text-[#807e7e]">Developers</span>
-            <span>{developer.join(", ")}</span>
+            <span>{developer?.join(", ")}</span>
           </div>
           <Divider className="bg-[#8d8d8d]" />
           <div className="flex justify-between gap-2 max-sm:flex-col max-sm:text-sm">
@@ -95,7 +111,7 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: NewGamesDetails }) => {
           <div className="flex  gap-2">
             <span className="text-[#807e7e]">Stores</span>
 
-            {gameDetails.stores.map((item) => (
+            {gameDetails.stores?.map((item) => (
               <>
                 {
                   CATEGORY_ICON[

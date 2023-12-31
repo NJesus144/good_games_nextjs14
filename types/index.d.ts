@@ -14,6 +14,11 @@ interface Platform {
     image_background: string;
   };
 }
+interface Genre {
+  id: number;
+  name: string;
+  slug: string;
+}
 
 export interface Games {
   id: number;
@@ -25,6 +30,7 @@ export interface Games {
   rating: number;
   metacritic: number;
   platforms: Platform[];
+  genres: Genre[];
 }
 
 interface Store {
@@ -36,11 +42,6 @@ interface Store {
     domain: string;
   };
 }
-interface Genre {
-  id: number;
-  name: string;
-  slug: string;
-}
 
 interface Developers {
   id: number;
@@ -48,12 +49,6 @@ interface Developers {
   slug: string;
   image_background: string;
 }
-export interface NewGamesDetails extends GamesWithPrice, GameDetails {
-  price: number;
-  slug: string;
-  rating: number;
-}
-
 
 export interface GameDetails {
   id: number;
@@ -62,10 +57,10 @@ export interface GameDetails {
   metacritic: number;
   released: Date;
   background_image: string;
-  background_image_additional: string;
-  developers: Developers[];
+  background_image_additional?: string;
+  developers?: Developers[];
   platforms: Platform[];
-  stores: Store[];
+  stores?: Store[];
   genres: Genre[];
 }
 
@@ -73,9 +68,15 @@ export interface GamesWithPrice extends Games {
   price: number;
 }
 
+export interface NewGamesDetails extends GamesWithPrice, GameDetails {
+  price: number;
+  slug: string;
+  rating: number;
+}
+
 export interface GamePerUrl {
   count: number;
   next?: string;
   previous?: string;
-  results: GamesWithPrice[];
+  results: NewGamesDetails[];
 }

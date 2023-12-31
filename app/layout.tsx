@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { ProviderNextUI } from "@/providers/ProviderNextUI";
 import { ClerkProvider } from "@clerk/nextjs";
 
@@ -34,7 +37,10 @@ export default function RootLayout({
         >
           <CartProvider>
             <FavoriteProvider>
-              <ProviderNextUI>{children}</ProviderNextUI>
+              <ProviderNextUI>
+                <ToastContainer autoClose={2000} />
+                {children}
+              </ProviderNextUI>
             </FavoriteProvider>
           </CartProvider>
         </ClerkProvider>

@@ -68,8 +68,8 @@ export default function NavbarComponent() {
         <NavbarBrand>
           <div className="flex">
             <Link href="/">
-              <p className=" text-lg font-bold text-white">GG</p>
-              <span className=" text-lg font-bold text-blue-500">Easy</span>
+            <p className=" text-2xl font-bold text-white">GG</p>
+            <span className=" text-2xl font-bold text-blue-500">Easy</span>
             </Link>
           </div>
         </NavbarBrand>
