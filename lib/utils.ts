@@ -24,15 +24,6 @@ export const generateAndSetRandomPrice = (itemId: number): number => {
 
   if (storedPrice === null) {
     const randomPrice = generateRandomPrice();
-
-    // const formattedRandomPrice = new Intl.NumberFormat("pt-BR", {
-    //   style: "currency",
-    //   currency: "BRL",
-    //   minimumFractionDigits: 2,
-    //   maximumFractionDigits: 2,
-    // }).format(randomPrice);
-    
-
     localStorage.setItem(`price_${itemId}`, JSON.stringify(randomPrice));
 
     return randomPrice;
@@ -47,31 +38,6 @@ export function currencyFormat(currency: number){
     currency: 'BRL',
   }).format(currency)
 }
-
-
-// const generateRandomPrice = () => {
-//   return (Math.random() * (200 - 80) + 80).toFixed(2);
-// };
-
-// export const generateAndSetRandomPrice = (itemId: number) => {
-//   const storedPrice = localStorage.getItem(`price_${itemId}`);
-
-//   if (storedPrice === null) {
-//     const randomPrice = generateRandomPrice();
-//     const formattedRandomPrice = new Intl.NumberFormat("pt-BR", {
-//       style: "currency",
-//       currency: "BRL",
-//       minimumFractionDigits: 2,
-//       maximumFractionDigits: 2,
-//     }).format(randomPrice);
-
-//     localStorage.setItem(`price_${itemId}`, formattedRandomPrice);
-
-//     return formattedRandomPrice;
-//   }
-
-//   return storedPrice;
-// };
 
 
 

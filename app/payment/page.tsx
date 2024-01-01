@@ -4,26 +4,14 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 import PayOrder from "@/components/shared/orderCloseAction/PayOrder";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { IMaskInput } from "react-imask";
 
-const schema = yup
-  .object({
-    fullName: yup
-      .string()
-      .required("Nome é obrigatório")
-      .min(3, "Nome deve ter no mínimo 5 caracteres"),
-    mobile: yup.string().required(),
-  })
-  .required();
-type FieldValues = yup.InferType<typeof schema>;
+import { schema, FieldValues } from "./validationSchema";
 
 const Page = () => {
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors },
   } = useForm<FieldValues>({
@@ -98,12 +86,24 @@ const Page = () => {
 
             <div className="mt-4 flex flex-col">
               <label htmlFor="full-name">CPF</label>
-              <Input
-                type="text"
-                id="document"
-                className="p-2 text-black"
-                autoComplete="document"
+
+              <Controller
+                name="document"
+                control={control}
+                render={({ field }) => (
+                  // <Input type="text" id="document" className="p-2 text-black" autoComplete="phone" {...field}/>
+                  <IMaskInput
+                    type="text"
+                    id="document"
+                    mask={"000.000.000-00"}
+                    className="rounded-md border-0 p-2 text-black outline-none"
+                    {...field}
+                  />
+                )}
               />
+              {errors.document && (
+                <p className="text-red-500">{errors.document.message}</p>
+              )}
             </div>
             <div className="flex gap-4 max-sm:flex-col">
               <div className="mt-4 flex flex-col">
@@ -118,7 +118,7 @@ const Page = () => {
                       type="tel"
                       id="mobile"
                       autoComplete="phone"
-                      mask={"(00) 00000-0000"}
+                      mask={"(00) 90000-0000"}
                       className="rounded-md border-0 p-2 text-black outline-none"
                       {...field}
                     />
