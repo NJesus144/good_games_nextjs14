@@ -29,7 +29,7 @@ const GameCardWishlist = ({ games, isCart }: GameCardWishlistProps) => {
         return (
           <div
             key={item.id}
-            className="ml-0 flex h-full  max-h-[330px] w-full justify-between gap-4  max-lg:mb-8  max-lg:max-h-[800px]  max-lg:flex-col max-md:border max-md:border-[#333]  md:ml-24 xl:ml-48"
+            className="flex h-full  max-h-[330px] w-full justify-between gap-4  max-lg:mb-8  max-lg:max-h-[800px]  max-lg:flex-col max-md:border max-md:border-[#333] "
           >
             <div className=" flex  gap-4 max-lg:flex-col">
               <div className="h-[150px] max-w-[300px] max-lg:max-w-full">

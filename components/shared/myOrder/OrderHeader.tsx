@@ -8,7 +8,7 @@ const OrderHeader = () => {
  
 
   return (
-    <header className=" m-auto max-w-5xl p-6 text-white">
+    <header className=" text-white">
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <h3 className="text-3xl"> Your shopping cart</h3>

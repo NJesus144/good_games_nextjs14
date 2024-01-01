@@ -5,7 +5,6 @@ import GameCardWishlist from "@/components/shared/cards/GameCardWishlist";
 import Title from "@/components/ui/title";
 
 const Page = () => {
-
   const { favorites } = useFavorite();
 
   return (
@@ -13,7 +12,7 @@ const Page = () => {
       <div className="ml-0 mt-5 text-6xl font-semibold text-white md:ml-24 xl:ml-48">
         <Title>Wishlist</Title>
       </div>
-      
+
       {favorites.length === 0 && (
         <p className="ml-40 mt-6 flex flex-col text-white">
           You do not have any games saved in your wishlist.{" "}
@@ -24,8 +23,8 @@ const Page = () => {
           </span>
         </p>
       )}
-      <div className="mt-8 flex flex-col items-center gap-4 text-white  sm:ml-24">
-        <GameCardWishlist games={favorites} isCart={false}/>
+      <div className="m-auto flex max-w-5xl flex-col gap-4 pt-6 text-white sm:ml-24 md:ml-24 xl:ml-48">
+        <GameCardWishlist games={favorites} isCart={false} />
       </div>
     </>
   );

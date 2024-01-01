@@ -1,18 +1,19 @@
 "use client";
 import React from "react";
-import { NewGamesDetails } from "@/types";
+
 import { useFavorite } from "@/providers/useFavorite";
+import { Game } from "@/contexts/CartContext";
 
 import Image from "next/image";
 import ButtonUi from "@/components/ui/button-ui";
 import { Divider } from "@nextui-org/react";
 import { Badge } from "@/components/ui/badge";
 import { CATEGORY_ICON } from "@/constants/categoryIcons";
-import { changeRankMetacritic } from "@/lib/utils";
+import { changeRankMetacritic, currencyFormat } from "@/lib/utils";
 import { useCart } from "@/providers/useCart";
 import Link from "next/link";
 
-const GameCardDetails = ({ gameDetails }: { gameDetails: NewGamesDetails }) => {
+const GameCardDetails = ({ gameDetails }: { gameDetails: Game }) => {
   const { addToWishlist, isFavorite, removeFromWishlist } = useFavorite();
   const { cart, addGameIntoCart } = useCart();
 
@@ -23,9 +24,7 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: NewGamesDetails }) => {
 
   const gameExists = cart.find((game) => game.id === gameDetails.id);
 
-  const price = localStorage
-    .getItem(`price_${gameDetails.id}`)
-    ?.replace(".", ",");
+  const price = localStorage.getItem(`price_${gameDetails.id}`);
 
   return (
     <section className="mx-auto flex max-w-7xl flex-col gap-4  p-12 pb-20 text-white">
@@ -44,13 +43,13 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: NewGamesDetails }) => {
               {gameDetails.name}
             </h1>
             <div className="flex gap-2">
-              <h2 className="text-lg ">R$ {price}</h2>
+              <h2 className="text-lg">{currencyFormat(Number(price))}</h2>
             </div>
           </div>
 
           <div className="flex flex-col gap-4 ">
             <ButtonUi otherStyle="w-full p-6 " color="primary">
-              Buy Now
+              <Link href="/cart">Buy Now</Link>
             </ButtonUi>
 
             {!gameExists ? (

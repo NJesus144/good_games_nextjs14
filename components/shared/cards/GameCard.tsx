@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Card, CardFooter } from "@/components/ui/card";
-import { changeRankMetacritic } from "@/lib/utils";
+import { changeRankMetacritic, currencyFormat } from "@/lib/utils";
 import Image from "next/image";
 
 import Link from "next/link";
@@ -55,7 +55,7 @@ export function GameCard({ games }: { games: Game[] }) {
                     </button>
                   </Link>
                   <span className="lg:hidden">
-                    R$ {String(item.price).replace(".", ",")}
+                  {currencyFormat(item.price)}
                   </span>
                 </div>
 

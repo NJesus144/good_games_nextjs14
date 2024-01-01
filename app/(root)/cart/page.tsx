@@ -3,6 +3,7 @@ import OrderHeader from "@/components/shared/myOrder/OrderHeader";
 import { useCart } from "@/providers/useCart";
 import GameCardWishlist from "@/components/shared/cards/GameCardWishlist";
 import React from "react";
+import ConfirmOrder from "@/components/shared/orderCloseAction/ConfirmOrder";
 
 const Cart = () => {
   const { cart } = useCart();
@@ -16,9 +17,11 @@ const Cart = () => {
 
   return (
     <>
-      <OrderHeader />
-      <div className="flex flex-col items-center gap-4 text-white  sm:ml-24">
-        <GameCardWishlist games={cart}  isCart={true}/>
+      <div className="m-auto flex max-w-5xl flex-col gap-4 pt-6 text-white sm:ml-24 md:ml-24 xl:ml-48">
+        <OrderHeader />
+        <GameCardWishlist games={cart} isCart={true} />
+
+        <ConfirmOrder />
       </div>
     </>
   );
