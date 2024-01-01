@@ -5,11 +5,13 @@ import { Input } from "@/components/ui/input";
 import PayOrder from "@/components/shared/orderCloseAction/PayOrder";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { IMaskInput } from "react-imask";
+import { IMask, IMaskInput } from "react-imask";
 
 import { schema, FieldValues } from "./validationSchema";
+import { useCart } from "@/providers/useCart";
 
 const Page = () => {
+  const { payOrder } = useCart();
   const {
     control,
     handleSubmit,
@@ -17,8 +19,7 @@ const Page = () => {
   } = useForm<FieldValues>({
     resolver: yupResolver(schema),
   });
-  const onSubmit: SubmitHandler<FieldValues> = (data) =>
-    console.log("data", data);
+  const onSubmit: SubmitHandler<FieldValues> = (data) => payOrder(data);
 
   return (
     <>
@@ -33,33 +34,99 @@ const Page = () => {
 
             <div className="mt-4 flex flex-col">
               <label htmlFor="creditCardNumber">Número do cartão</label>
-              <Input
-                type="text"
-                id="creditCardNumber"
+
+              <Controller
                 name="creditCardNumber"
-                className="p-2 text-black"
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <IMaskInput
+                    type="text"
+                    id="creditCardNumber"
+                    mask={[
+                      {
+                        mask: "0000 000000 0000",
+                        maxLength: 14,
+                      },
+                      {
+                        mask: "0000 000000 00000",
+                        maxLength: 15,
+                      },
+                      {
+                        mask: "0000 0000 0000 0000",
+                      },
+                    ]}
+                    className="rounded-md border-0 p-2 text-black outline-none"
+                    {...{ onChange, onBlur, value }}
+                  />
+                )}
               />
+              {errors.creditCardNumber && (
+                <p className="text-red-500">
+                  {errors.creditCardNumber.message}
+                </p>
+              )}
             </div>
             <div className="flex gap-4 max-sm:flex-col">
               <div className="mt-4 flex flex-col">
                 <label htmlFor="creditCardExpiration">Validade (MM/AA)</label>
-                <Input
-                  type="text"
-                  id="creditCardExpiration"
+
+                <Controller
                   name="creditCardExpiration"
-                  className="p-2 text-black"
+                  control={control}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <IMaskInput
+                      type="text"
+                      id="creditCardExpiration"
+                      mask={[
+                        {
+                          mask: "MM/YY",
+                          blocks: {
+                            MM: {
+                              mask: IMask.MaskedRange,
+                              from: 1,
+                              to: 12,
+                            },
+                            YY: {
+                              mask: IMask.MaskedRange,
+                              from: new Date().getFullYear() - 2000,
+                              to: 99,
+                            },
+                          },
+                        },
+                      ]}
+                      className="rounded-md border-0 p-2 text-black outline-none"
+                      {...{ onChange, onBlur, value }}
+                    />
+                  )}
                 />
+                {errors.creditCardExpiration && (
+                  <p className="text-red-500">
+                    {errors.creditCardExpiration.message}
+                  </p>
+                )}
               </div>
               <div className="mt-4 flex flex-col">
                 <label htmlFor="creditCardSecurityCode">
                   Código de segurança (CVV)
                 </label>
-                <Input
-                  type="text"
-                  id="creditCardSecurityCode"
+                <Controller
                   name="creditCardSecurityCode"
-                  className="p-2 text-black"
+                  control={control}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <IMaskInput
+                      type="text"
+                      id="creditCardSecurityCode"
+                      mask={"0000"}
+                      className="rounded-md border-0 p-2 text-black outline-none"
+                      {...{ onChange, onBlur, value }}
+                    />
+                  )}
                 />
+                {errors.creditCardSecurityCode && (
+                  <p className="text-red-500">
+                    {errors.creditCardSecurityCode.message}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -91,7 +158,6 @@ const Page = () => {
                 name="document"
                 control={control}
                 render={({ field }) => (
-                  // <Input type="text" id="document" className="p-2 text-black" autoComplete="phone" {...field}/>
                   <IMaskInput
                     type="text"
                     id="document"
@@ -105,40 +171,31 @@ const Page = () => {
                 <p className="text-red-500">{errors.document.message}</p>
               )}
             </div>
-            <div className="flex gap-4 max-sm:flex-col">
-              <div className="mt-4 flex flex-col">
-                <label htmlFor="mobile">Telefone</label>
 
-                <Controller
-                  name="mobile"
-                  control={control}
-                  render={({ field }) => (
-                    // <Input type="text" id="mobile" className="p-2 text-black" autoComplete="phone" {...field}/>
-                    <IMaskInput
-                      type="tel"
-                      id="mobile"
-                      autoComplete="phone"
-                      mask={"(00) 90000-0000"}
-                      className="rounded-md border-0 p-2 text-black outline-none"
-                      {...field}
-                    />
-                  )}
-                />
+            <div className="mt-4 flex flex-col">
+              <label htmlFor="mobile">Telefone</label>
 
-                {errors.mobile && (
-                  <p className="text-red-500">{errors.mobile.message}</p>
+              <Controller
+                name="mobile"
+                control={control}
+                render={({ field }) => (
+                  // <Input type="text" id="mobile" className="p-2 text-black" autoComplete="phone" {...field}/>
+                  <IMaskInput
+                    type="tel"
+                    id="mobile"
+                    autoComplete="phone"
+                    mask={"(00) 90000-0000"}
+                    className="rounded-md border-0 p-2 text-black outline-none"
+                    {...field}
+                  />
                 )}
-              </div>
-              <div className="mt-4 flex flex-col">
-                <label htmlFor="dateofbirth">Data de nascimento</label>
-                <Input
-                  type="text"
-                  id="dateofbirth"
-                  name="dateofbirth"
-                  className="p-2 text-black"
-                />
-              </div>
+              />
+
+              {errors.mobile && (
+                <p className="text-red-500">{errors.mobile.message}</p>
+              )}
             </div>
+
             <PayOrder />
           </form>
         </section>

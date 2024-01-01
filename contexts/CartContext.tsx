@@ -4,6 +4,7 @@ import { GamesWithPrice, NewGamesDetails } from "@/types";
 import { createContext, ReactNode, useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { CustomerData } from "@/types/CustomerData";
 
 export interface Game extends NewGamesDetails {
   quantity: number;
@@ -26,7 +27,7 @@ interface CartContextProps {
   addGameIntoCart: (game: GamesWithPrice) => void;
   removeGameFromCart: (game: Game) => void;
   // updateCart: ({id, game, newQuantity}: UpdateCartProps) => void;
-  payOrder: () => void;
+  payOrder: (customer: CustomerData) => void;
   confirmOrder: () => void;
 }
 
@@ -68,7 +69,11 @@ export function CartProvider({ children }: CartProviderProps) {
     router.push("/payment");
   }
 
-  function payOrder() {}
+  function payOrder(customer: CustomerData) {
+    console.log('payorder', cart, customer)
+// chamada para o back
+
+  }
 
   return (
     <CartContext.Provider
