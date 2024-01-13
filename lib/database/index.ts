@@ -3,10 +3,10 @@ import mongoose from "mongoose";
 let isConnected: boolean = false;
 
 export const connectToDatabase = async () => {
-  mongoose.set('strictQuery', true);
+  mongoose.set("strictQuery", true);
 
   if (!process.env.MONGODB_URL) {
-    return console.log("MMISSING MONGODB_URL");
+    return console.log("MISSING MONGODB_URL");
   }
 
   if (isConnected) {
@@ -15,7 +15,7 @@ export const connectToDatabase = async () => {
 
   try {
     await mongoose.connect(process.env.MONGODB_URL, {
-      dbName: "good-games",
+      dbName: "games-store",
     });
 
     isConnected = true;
