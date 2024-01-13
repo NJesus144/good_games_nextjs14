@@ -4,16 +4,17 @@ import { changeRankMetacritic, currencyFormat } from "@/lib/utils";
 import Image from "next/image";
 
 import Link from "next/link";
-import { useFavorite } from "@/providers/useFavorite";
 import ButtonUi from "@/components/ui/button-ui";
 import { PlusIcon, ShoppingCartIcon } from "lucide-react";
-import { useCart } from "@/providers/useCart";
+
 import { Games } from "@/types";
+import { CartContext } from "@/contexts/CartContext";
+import { FavoriteContext } from "@/contexts/FavoriteContext";
 
 export function GameCard({ games }: { games: Games[] }) {
-  const { cart, addGameIntoCart } = useCart();
-
-  const { addToWishlist, removeFromWishlist, isFavorite } = useFavorite();
+  const { addToWishlist, isFavorite, removeFromWishlist } =
+    React.useContext(FavoriteContext);
+  const { cart, addGameIntoCart } = React.useContext(CartContext);
 
   return (
     <>
@@ -55,7 +56,7 @@ export function GameCard({ games }: { games: Games[] }) {
                     </button>
                   </Link>
                   <span className="lg:hidden">
-                  {currencyFormat(item.price)}
+                    {currencyFormat(item.price)}
                   </span>
                 </div>
 

@@ -1,21 +1,21 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 
-import { useFavorite } from "@/providers/useFavorite";
 import { Games } from "@/types";
-
+import { FavoriteContext } from "@/contexts/FavoriteContext";
+import { CartContext } from "@/contexts/CartContext";
 import Image from "next/image";
 import ButtonUi from "@/components/ui/button-ui";
 import { Divider } from "@nextui-org/react";
 import { Badge } from "@/components/ui/badge";
 import { CATEGORY_ICON } from "@/constants/categoryIcons";
 import { changeRankMetacritic, currencyFormat } from "@/lib/utils";
-import { useCart } from "@/providers/useCart";
+
 import Link from "next/link";
 
 const GameCardDetails = ({ gameDetails }: { gameDetails: Games }) => {
-  const { addToWishlist, isFavorite, removeFromWishlist } = useFavorite();
-  const { cart, addGameIntoCart } = useCart();
+  const { addToWishlist, isFavorite, removeFromWishlist } = useContext(FavoriteContext);
+  const { cart, addGameIntoCart } = useContext(CartContext);
 
   const developer = gameDetails.developers?.map((developer) => developer.name);
   const platforms = gameDetails.platforms.map(
@@ -26,11 +26,10 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: Games }) => {
 
   const price = localStorage.getItem(`price_${gameDetails.id}`);
 
- 
   const newGame = {
     ...gameDetails,
     price: Number(price),
-  }
+  };
 
   return (
     <section className="mx-auto flex max-w-7xl flex-col gap-4  p-12 pb-20 text-white">

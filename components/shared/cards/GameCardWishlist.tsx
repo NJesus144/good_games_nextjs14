@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import ButtonUi from "@/components/ui/button-ui";
 import { Badge } from "@/components/ui/badge";
@@ -7,7 +7,7 @@ import Link from "next/link";
 
 import { PlusIcon, ShoppingCartIcon } from "lucide-react";
 import { changeRankMetacritic } from "@/lib/utils";
-import { useCart } from "@/providers/useCart";
+import { CartContext } from "@/contexts/CartContext";
 import RemoveGameFromList, { CartButton, WishListButton } from "../RemoveGameFromList";
 import { Games } from "@/types";
 
@@ -17,7 +17,7 @@ interface GameCardWishlistProps {
 }
 
 const GameCardWishlist = ({ games, isCart }: GameCardWishlistProps) => {
-  const { cart, addGameIntoCart } = useCart();
+  const { cart, addGameIntoCart } = useContext(CartContext);
 
   const select: CartButton | WishListButton = isCart ? { cart: true } : { wishlist: true };
 

@@ -1,11 +1,11 @@
 "use client";
-import React from "react";
-import { useFavorite } from "@/providers/useFavorite";
+import React, { useContext } from "react";
+import { FavoriteContext } from "@/contexts/FavoriteContext";
 import GameCardWishlist from "@/components/shared/cards/GameCardWishlist";
 import Title from "@/components/ui/title";
 
 const Page = () => {
-  const { favorites } = useFavorite();
+  const { favorites } = useContext(FavoriteContext);
 
   return (
     <>

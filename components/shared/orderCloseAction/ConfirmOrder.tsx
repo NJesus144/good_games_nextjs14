@@ -1,10 +1,10 @@
 "use client";
 import { currencyFormat } from "@/lib/utils";
-import { useCart } from "@/providers/useCart";
-import React from "react";
+import { CartContext } from "@/contexts/CartContext";
+import React, { useContext } from "react";
 
 const ConfirmOrder = () => {
-  const { cart, confirmOrder } = useCart();
+  const { cart, confirmOrder } = useContext(CartContext);
 
   const totalAmount = cart.reduce((acc, item) => (acc += item.subtotal), 0);
 

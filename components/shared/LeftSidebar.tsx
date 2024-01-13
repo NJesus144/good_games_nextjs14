@@ -3,15 +3,15 @@
 import { usePathname } from "next/navigation";
 import { sidebarLinks } from "@/constants";
 
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
 import SelectFilter from "./SelectFilter";
 import { GenresFilters, PlatformFilters } from "@/constants/filters";
-import { useCart } from "@/providers/useCart";
+import { CartContext } from "@/contexts/CartContext";
 
 const LeftSidebar = () => {
   const pathname = usePathname();
-  const { cart } = useCart();
+  const { cart } = useContext(CartContext);
 
   const quantity = cart.reduce((sumQuantity, game) => {
     return sumQuantity + game.quantity;

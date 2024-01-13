@@ -27,7 +27,7 @@ export function PaginationControls({
   };
 
   return (
-    <div className=" ml-0 flex items-center justify-center gap-4 mt-8 xl:ml-48 md:ml-24">
+    <div className=" ml-0 mt-8 flex items-center justify-center gap-4 md:ml-24 xl:ml-48">
       <ButtonUi
         otherStyle="bg-slate-500 bg-transparente"
         isLoading={loading}

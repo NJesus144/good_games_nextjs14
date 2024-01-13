@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, {useContext} from 'react'
 import { CreditCardIcon } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
@@ -9,12 +9,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { IMask, IMaskInput } from "react-imask";
 
 import { schema, FieldValues } from "./validationSchema";
-import { useCart } from "@/providers/useCart";
+import { CartContext } from '@/contexts/CartContext';
 
 
 
 const PaymentForm = () => {
-  const { payOrder } = useCart();
+  const { payOrder } = useContext(CartContext);
   const {
     control,
     handleSubmit,
