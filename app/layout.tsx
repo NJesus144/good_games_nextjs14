@@ -35,14 +35,14 @@ export default function RootLayout({
             },
           }}
         >
-          <CartProvider>
-            <FavoriteProvider>
+          <FavoriteProvider>
+            <CartProvider>
               <ProviderNextUI>
                 <ToastContainer autoClose={2000} />
                 {children}
               </ProviderNextUI>
-            </FavoriteProvider>
-          </CartProvider>
+            </CartProvider>
+          </FavoriteProvider>
         </ClerkProvider>
       </body>
     </html>

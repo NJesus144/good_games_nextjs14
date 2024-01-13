@@ -18,6 +18,9 @@ interface FavoriteProviderProps {
 
 export const FavoriteContext = createContext({} as FavoriteContextProps);
 
+// export const CartContext = createContext({} as CartContextProps);
+
+
 export function FavoriteProvider({ children }: FavoriteProviderProps) {
   const [favorites, setFavorites] = useState<Games[]>(() => {
     const storagedFavorites = localStorage.getItem("@gameStore:favorites");
