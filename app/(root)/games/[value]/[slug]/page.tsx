@@ -56,6 +56,7 @@ const Page = ({ params }: { params: { value: string; slug: string } }) => {
 
   useEffect(() => {
     getGamesPreSlug();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
   return (
     <div>

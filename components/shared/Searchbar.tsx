@@ -14,6 +14,7 @@ const Searchbar = () => {
   const [showResults, setShowResults] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
+  // eslint-disable-next-line no-undef
   const searchTimer = useRef<NodeJS.Timeout | null>(null);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +92,7 @@ const Searchbar = () => {
               <Link
                 key={game.id}
                 href={`/more-details/${game.slug}`}
-                className="hover:bg-[#c9c9c9] p-1 px-2 rounded-md w-full  ease-in-out duration-300"
+                className="w-full rounded-md p-1 px-2 duration-300  ease-in-out hover:bg-[#c9c9c9]"
               >
                 {game.name}
               </Link>
