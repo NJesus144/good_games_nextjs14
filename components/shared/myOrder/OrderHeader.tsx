@@ -1,10 +1,12 @@
 "use client";
-import { useCart } from "@/providers/useCart";
 
+
+import { CartContext } from "@/contexts/CartContext";
 import { ShoppingBagIcon } from "lucide-react";
+import { useContext } from "react";
 
 const OrderHeader = () => {
-  const { cart } = useCart();
+  const { cart } = useContext(CartContext);
  
 
   return (

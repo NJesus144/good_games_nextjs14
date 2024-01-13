@@ -1,14 +1,15 @@
 "use client";
 import { generateAndSetRandomPrice } from "@/lib/utils";
 import React, { createContext, useState, ReactNode, useEffect } from "react";
-import { Game } from "./CartContext";
+// import { Game } from "./CartContext";
+import { Games } from "@/types";
 
 interface FavoriteContextProps {
-  favorites: Game[];
-  setFavorites: React.Dispatch<React.SetStateAction<Game[]>>;
-  addToWishlist: (game: Game) => void;
-  removeFromWishlist: (game: Game) => void;
-  isFavorite: (game: Game) => boolean;
+  favorites: Games[];
+  setFavorites: React.Dispatch<React.SetStateAction<Games[]>>;
+  addToWishlist: (game: Games) => void;
+  removeFromWishlist: (game: Games) => void;
+  isFavorite: (game: Games) => boolean;
 }
 
 interface FavoriteProviderProps {
@@ -18,7 +19,7 @@ interface FavoriteProviderProps {
 export const FavoriteContext = createContext({} as FavoriteContextProps);
 
 export function FavoriteProvider({ children }: FavoriteProviderProps) {
-  const [favorites, setFavorites] = useState<Game[]>(() => {
+  const [favorites, setFavorites] = useState<Games[]>(() => {
     const storagedFavorites = localStorage.getItem("@gameStore:favorites");
 
     if (storagedFavorites) return JSON.parse(storagedFavorites);
@@ -29,7 +30,7 @@ export function FavoriteProvider({ children }: FavoriteProviderProps) {
     localStorage.setItem("@gameStore:favorites", JSON.stringify(favorites));
   }, [favorites]);
 
-  const addToWishlist = (game: Game) => {
+  const addToWishlist = (game: Games) => {
     const gamesPrice = {
       ...game,
       price: generateAndSetRandomPrice(game.id),
@@ -38,11 +39,11 @@ export function FavoriteProvider({ children }: FavoriteProviderProps) {
     setFavorites([...favorites, gamesPrice]);
   };
 
-  const removeFromWishlist = (game: Game) => {
+  const removeFromWishlist = (game: Games) => {
     setFavorites(favorites.filter((item) => item.id !== game.id));
   };
 
-  const isFavorite = (game: Game) =>
+  const isFavorite = (game: Games) =>
     favorites.some((item) => item.id === game.id);
 
   return (
