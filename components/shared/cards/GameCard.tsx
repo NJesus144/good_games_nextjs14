@@ -8,9 +8,9 @@ import { useFavorite } from "@/providers/useFavorite";
 import ButtonUi from "@/components/ui/button-ui";
 import { PlusIcon, ShoppingCartIcon } from "lucide-react";
 import { useCart } from "@/providers/useCart";
-import { Game } from "@/contexts/CartContext";
+import { Games } from "@/types";
 
-export function GameCard({ games }: { games: Game[] }) {
+export function GameCard({ games }: { games: Games[] }) {
   const { cart, addGameIntoCart } = useCart();
 
   const { addToWishlist, removeFromWishlist, isFavorite } = useFavorite();

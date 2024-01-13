@@ -39,6 +39,7 @@ export function currencyFormat(currency: number){
   }).format(currency)
 }
 
-
-
-
+export const handleError = (error: unknown) => {
+  console.error(error)
+  throw new Error(typeof error === 'string' ? error : JSON.stringify(error))
+}

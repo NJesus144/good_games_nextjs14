@@ -1,5 +1,5 @@
 "use server";
-import { Game } from "@/contexts/CartContext";
+
 import { GamePerUrl, Games } from "@/types";
 
 export async function getGames(): Promise<Games[]> {
@@ -55,9 +55,7 @@ export async function getGamesByPlatform(
   }
 }
 
-export async function getGameDetaislById(
-  slug: string
-): Promise<Game> {
+export async function getGameDetaislById(slug: string): Promise<Games> {
   try {
     const respose = await fetch(
       `https://api.rawg.io/api/games/${slug}?key=${process.env.API_KEY}`
@@ -67,10 +65,9 @@ export async function getGameDetaislById(
     return data;
   } catch (error) {
     console.error("Error fetching data: ", error);
-    return {} as Game;
+    return {} as Games;
   }
 }
-
 
 export async function getGamesBySearch(slug: string): Promise<Games[]> {
   try {

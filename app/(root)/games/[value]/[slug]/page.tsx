@@ -3,14 +3,14 @@ import React, { useState, useEffect } from "react";
 import { GameCard } from "@/components/shared/cards/GameCard";
 import { getGamesByGenre, getGamesByPlatform } from "@/lib/actions/api.action";
 import PaginationControls from "@/components/shared/paginationControls";
-import { GamesWithPrice } from "@/types";
+import { Games } from "@/types";
 import SkeletonCardGame from "@/components/ui/skeletonCardGame";
 import { generateAndSetRandomPrice } from "@/lib/utils";
 
 const Page = ({ params }: { params: { value: string; slug: string } }) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [gamesData, setGamesData] = useState<GamesWithPrice[]>([]);
+  const [gamesData, setGamesData] = useState<Games[]>([]);
   const [loading, setLoading] = useState(false);
 
   const itemsPerPage = 21;
@@ -20,7 +20,7 @@ const Page = ({ params }: { params: { value: string; slug: string } }) => {
       itemsPerPage: number,
       page: number,
       slug: string
-    ) => Promise<{ count: number; results: GamesWithPrice[] }>;
+    ) => Promise<{ count: number; results: Games[] }>;
   }
 
   const loadGames = async ({ fetchFunction }: FetchFunctionProps) => {

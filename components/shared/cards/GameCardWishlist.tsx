@@ -9,10 +9,10 @@ import { PlusIcon, ShoppingCartIcon } from "lucide-react";
 import { changeRankMetacritic } from "@/lib/utils";
 import { useCart } from "@/providers/useCart";
 import RemoveGameFromList, { CartButton, WishListButton } from "../RemoveGameFromList";
-import { Game } from "@/contexts/CartContext";
+import { Games } from "@/types";
 
 interface GameCardWishlistProps {
-  games: Game[];
+  games: Games[];
   isCart?: boolean;
 }
 

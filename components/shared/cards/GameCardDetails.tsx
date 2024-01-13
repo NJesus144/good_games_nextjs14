@@ -2,7 +2,7 @@
 import React from "react";
 
 import { useFavorite } from "@/providers/useFavorite";
-import { Game } from "@/contexts/CartContext";
+import { Games } from "@/types";
 
 import Image from "next/image";
 import ButtonUi from "@/components/ui/button-ui";
@@ -13,7 +13,7 @@ import { changeRankMetacritic, currencyFormat } from "@/lib/utils";
 import { useCart } from "@/providers/useCart";
 import Link from "next/link";
 
-const GameCardDetails = ({ gameDetails }: { gameDetails: Game }) => {
+const GameCardDetails = ({ gameDetails }: { gameDetails: Games }) => {
   const { addToWishlist, isFavorite, removeFromWishlist } = useFavorite();
   const { cart, addGameIntoCart } = useCart();
 
@@ -26,11 +26,17 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: Game }) => {
 
   const price = localStorage.getItem(`price_${gameDetails.id}`);
 
+ 
+  const newGame = {
+    ...gameDetails,
+    price: Number(price),
+  }
+
   return (
     <section className="mx-auto flex max-w-7xl flex-col gap-4  p-12 pb-20 text-white">
       <div className="flex max-lg:flex-col max-lg:items-center max-lg:gap-6">
         <Image
-          src={gameDetails.background_image}
+          src={newGame.background_image}
           height={0}
           width={0}
           alt="image of game"
@@ -40,10 +46,10 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: Game }) => {
         <div className="flex w-full max-w-sm grow-0 flex-col gap-4 px-6 max-lg:max-w-2xl max-sm:px-0">
           <div className="flex flex-col items-center gap-2">
             <h1 className="text-4xl font-bold max-sm:text-3xl">
-              {gameDetails.name}
+              {newGame.name}
             </h1>
             <div className="flex gap-2">
-              <h2 className="text-lg">{currencyFormat(Number(price))}</h2>
+              <h2 className="text-lg">{currencyFormat(newGame.price)}</h2>
             </div>
           </div>
 
@@ -56,7 +62,7 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: Game }) => {
               <ButtonUi
                 variant="bordered"
                 otherStyle="p-6 hover:bg-[#2e2e2e]"
-                onClick={() => addGameIntoCart(gameDetails)}
+                onClick={() => addGameIntoCart(newGame)}
               >
                 Add to Cart
               </ButtonUi>
@@ -75,14 +81,14 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: Game }) => {
               variant="bordered"
               otherStyle="p-2 hover:bg-[#2e2e2e] "
               onClick={() => {
-                if (isFavorite(gameDetails)) {
-                  removeFromWishlist(gameDetails);
+                if (isFavorite(newGame)) {
+                  removeFromWishlist(newGame);
                 } else {
-                  addToWishlist(gameDetails);
+                  addToWishlist(newGame);
                 }
               }}
             >
-              {isFavorite(gameDetails) ? "On the list" : "Wishlist"}
+              {isFavorite(newGame) ? "On the list" : "Wishlist"}
             </ButtonUi>
           </div>
           <div className="flex justify-between gap-2 max-sm:flex-col max-sm:text-sm">
@@ -97,7 +103,7 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: Game }) => {
           <Divider className="bg-[#8d8d8d]" />
           <div className="flex gap-2 max-sm:flex-col max-sm:text-sm">
             <span className="text-[#807e7e]">Genre</span>
-            {gameDetails.genres.map((tag) => (
+            {newGame.genres.map((tag) => (
               <Badge
                 key={tag.id}
                 className="rounded-md bg-[#333] p-2 hover:bg-[#4e4e4e]"
@@ -110,7 +116,7 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: Game }) => {
           <div className="flex  gap-2">
             <span className="text-[#807e7e]">Stores</span>
 
-            {gameDetails.stores?.map((item) => (
+            {newGame.stores?.map((item) => (
               <>
                 {
                   CATEGORY_ICON[
@@ -126,18 +132,18 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: Game }) => {
         </div>
       </div>
       <div className="flex gap-4">
-        <span className="text-2xl font-bold  ">{gameDetails.name}</span>
+        <span className="text-2xl font-bold  ">{newGame.name}</span>
         <span
           className={`flex items-center justify-center rounded-md border px-2  ${changeRankMetacritic(
-            gameDetails.metacritic
+            newGame.metacritic
           )}`}
         >
-          {gameDetails.metacritic}
+          {newGame.metacritic}
         </span>
       </div>
       <div
         className="text-[#d8d6d6] max-sm:text-sm"
-        dangerouslySetInnerHTML={{ __html: gameDetails.description }}
+        dangerouslySetInnerHTML={{ __html: newGame.description }}
       ></div>
     </section>
   );

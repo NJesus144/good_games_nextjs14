@@ -8,6 +8,8 @@ import ConfirmOrder from "@/components/shared/orderCloseAction/ConfirmOrder";
 const Cart = () => {
   const { cart } = useCart();
 
+  
+
   if (cart.length === 0)
     return (
       <h1 className="p-6 text-2xl text-white">
@@ -18,6 +20,7 @@ const Cart = () => {
   return (
     <>
       <div className="m-auto flex max-w-5xl flex-col gap-4 pt-6 text-white sm:ml-24 md:ml-24 xl:ml-48">
+
         <OrderHeader />
         <GameCardWishlist games={cart} isCart={true} />
 
