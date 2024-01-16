@@ -3,7 +3,7 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent, clerkClient } from '@clerk/nextjs/server'
-import { createUser, deleteUser, updateUser } from '@/lib/actions/user.action'
+import { createUser, deleteUser, updateUser } from '@/lib/actions/user.actions'
 import { NextResponse } from 'next/server'
 
  
@@ -56,6 +56,8 @@ export async function POST(req: Request) {
   // eslint-disable-next-line no-unused-vars
   const { id } = evt.data;
   const eventType = evt.type;
+
+ 
  
   if(eventType === "user.created") {
     const {id, email_addresses, image_url, first_name, last_name, username} = evt.data;

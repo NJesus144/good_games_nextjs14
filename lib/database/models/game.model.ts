@@ -1,7 +1,7 @@
 import { Developers, Genre, Platform, Store } from "@/types";
 import { Document, Schema, model, models } from "mongoose";
 
-export interface Games extends Document {
+export interface IGame extends Document {
   quantity: number;
   subtotal: number;
   price: number;
