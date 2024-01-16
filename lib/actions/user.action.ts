@@ -13,7 +13,7 @@ import Order from "../database/models/order.model"
 
 export const createUser = async (user: CreateUserParams) => {
   try{
-    console.log("chegou aqui", user)
+    
     await connectToDatabase()
 
     const newUser = await User.create(user)

@@ -1,27 +1,19 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-let isConnected: boolean = false;
+const MONGODB_URI = process.env.MONGODB_URI
+
+const cached = (global as any).mongoose  || {conn: null, promise: null}
 
 export const connectToDatabase = async () => {
-  mongoose.set("strictQuery", true);
+  if(cached.conn) return cached.conn
 
-  if (!process.env.MONGODB_URL) {
-    return console.log("MISSING MONGODB_URL");
-  }
+  if(!MONGODB_URI) throw new Error('Mongo URI is missing')
 
-  if (isConnected) {
-    return console.log("MongoDB is already connected");
-  }
+  cached.promise = cached.promise || mongoose.connect(MONGODB_URI, {
+    dbName: 'goodgames',
+    bufferCommands: false,
+  })
+  cached.conn = await cached.promise
 
-  try {
-    await mongoose.connect(process.env.MONGODB_URL, {
-      dbName: "games-store",
-    });
-
-    isConnected = true;
-
-    console.log("MongoDB is connected");
-  } catch (error) {
-    console.log("MongoDB connection failed", error);
-  }
-};
+  return cached.conn
+}

@@ -52,8 +52,8 @@ export async function POST(req: Request) {
   }
 
   // Get the ID and type
-   // eslint-disable-next-line no-unused-vars
-   const { id } = evt.data;
+  // eslint-disable-next-line no-unused-vars
+  const { id } = evt.data;
   const eventType = evt.type;
 
   if (eventType === "user.created") {
@@ -78,33 +78,31 @@ export async function POST(req: Request) {
         },
       });
     }
-    return NextResponse.json({ message: "OK", user: newUser }); 
+    return NextResponse.json({ message: "OK", user: newUser });
   }
 
-  if(eventType === "user.updated") {
-    const {id, image_url, first_name, last_name, username} = evt.data;
+  if (eventType === "user.updated") {
+    const { id, image_url, first_name, last_name, username } = evt.data;
 
     const user = {
       username: username!,
       firstName: first_name,
       lastName: last_name,
       photo: image_url,
-    }
+    };
 
-     const updatedUser = await updateUser(id, user)
+    const updatedUser = await updateUser(id, user);
 
-    return NextResponse.json({message: 'OK', user: updatedUser})
+    return NextResponse.json({ message: "OK", user: updatedUser });
   }
 
-  if(eventType === "user.deleted") {
-    const {id} = evt.data;
+  if (eventType === "user.deleted") {
+    const { id } = evt.data;
 
-    
+    const deletedUser = await deleteUser(id!);
 
-     const deletedUser = await deleteUser(id!)
-
-    return NextResponse.json({message: 'OK', user: deletedUser})
+    return NextResponse.json({ message: "OK", user: deletedUser });
   }
- 
-  return new Response('', { status: 200 })
+
+  return new Response("", { status: 200 });
 }
