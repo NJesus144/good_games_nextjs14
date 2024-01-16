@@ -5,28 +5,17 @@ import React from "react";
 const UserCredentials = () => {
   return (
     <NavbarContent justify="end">
-      <SignedOut>
-        <div className="flex gap-4">
-          <Link href="/sign-in">
-            <Button
-              size="sm"
-              variant="solid"
-              className="bg-[#0EA5E9] text-white"
-            >
-              Log in
-            </Button>
-          </Link>
-          <Link href="/sign-up">
-            <Button
-              size="sm"
-              variant="solid"
-              className="bg-[#0EA5E9] text-white"
-            >
-              Sign up
-            </Button>
-          </Link>
-        </div>
-      </SignedOut>
+      <div className="flex gap-4">
+        <SignedOut>
+          <Button size="sm" variant="solid" className="bg-[#0EA5E9] text-white">
+            <Link href="/sign-in">Login</Link>
+          </Button>
+        </SignedOut>
+
+        {/* <Button size="sm" variant="solid" className="bg-[#0EA5E9] text-white">
+          <Link href="/sign-up">Sign up</Link>
+        </Button> */}
+      </div>
 
       <NavbarItem>
         <SignedIn>
