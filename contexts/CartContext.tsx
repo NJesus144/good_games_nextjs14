@@ -10,7 +10,6 @@ import { Games } from "@/types";
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-
 interface CartContextProps {
   cart: Games[];
   addGameIntoCart: (mappedGame: Games, userId?: string) => void;
@@ -24,13 +23,8 @@ interface CartProviderProps {
 
 export const CartContext = createContext({} as CartContextProps);
 
-
-
 export function CartProvider({ children }: CartProviderProps) {
-
   const [cart, setCart] = useState<Games[]>([]);
-
-
 
   const getGames = async () => {
     const getGamesInCart = await getGamesFromCart();
@@ -42,11 +36,8 @@ export function CartProvider({ children }: CartProviderProps) {
   }, []);
 
   async function addGameIntoCart(mappedGame: Games, userId?: string) {
- 
     const newGame = { ...mappedGame, quantity: 1, subtotal: mappedGame.price };
-
-
-    toast.success(`${mappedGame.name} Added to cart😎`);
+    console.log("mappedGame", mappedGame);
 
     try {
       await createGameCart({
@@ -55,6 +46,7 @@ export function CartProvider({ children }: CartProviderProps) {
         path: "/",
       });
 
+      toast.success(`${mappedGame.name} Added to cart😎`);
       await getGames();
     } catch (error) {
       console.log(error);

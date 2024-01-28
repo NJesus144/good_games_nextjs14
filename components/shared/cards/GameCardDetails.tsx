@@ -13,7 +13,12 @@ import { changeRankMetacritic, currencyFormat } from "@/lib/utils";
 
 import Link from "next/link";
 
-const GameCardDetails = ({ gameDetails }: { gameDetails: Games }) => {
+interface GameCardDetailsProps {
+  gameDetails: Games;
+  userId: string
+}
+
+const GameCardDetails = ({ gameDetails, userId }: GameCardDetailsProps) => {
   const { addToWishlist, isFavorite, removeFromWishlist } = useContext(FavoriteContext);
   const { cart, addGameIntoCart } = useContext(CartContext);
 
@@ -22,7 +27,10 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: Games }) => {
     (platform) => platform.platform.name
   );
 
-  const gameExists = cart.find((game) => game.id === gameDetails.id);
+ 
+  const gameExists = cart.find((game: Games) => game.id === gameDetails.id);
+
+  console.log("cart", cart)
 
   const price = localStorage.getItem(`price_${gameDetails.id}`);
 
@@ -30,6 +38,8 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: Games }) => {
     ...gameDetails,
     price: Number(price),
   };
+
+  console.log("newGame", newGame)
 
   return (
     <section className="mx-auto flex max-w-7xl flex-col gap-4  p-12 pb-20 text-white">
@@ -61,7 +71,7 @@ const GameCardDetails = ({ gameDetails }: { gameDetails: Games }) => {
               <ButtonUi
                 variant="bordered"
                 otherStyle="p-6 hover:bg-[#2e2e2e]"
-                onClick={() => addGameIntoCart(newGame)}
+                onClick={() => addGameIntoCart(newGame, userId)}
               >
                 Add to Cart
               </ButtonUi>

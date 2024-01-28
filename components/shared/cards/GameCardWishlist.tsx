@@ -19,8 +19,6 @@ interface GameCardWishlistProps {
 const GameCardWishlist = ({ games, isCart }: GameCardWishlistProps) => {
   const { cart, addGameIntoCart } = useContext(CartContext);
 
- 
-
   const select: CartButton | WishListButton = isCart ? { cart: true } : { wishlist: true };
 
   return (
