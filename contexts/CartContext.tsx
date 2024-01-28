@@ -1,45 +1,21 @@
 "use client";
 
+import {
+  createGameCart,
+  getGamesFromCart,
+  removeGameFromCart,
+} from "@/lib/actions/game.actions";
+
 import { Games } from "@/types";
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
 
-export interface CustomerData {
-  fullName: string
-
-  mobile: string
-  document: string
- 
-  creditCardNumber: string
-
-  creditCardExpiration: string
-  creditCardSecurityCode: string
-}
-
-// export interface Game extends NewGamesDetails {
-//   quantity: number;
-//   subtotal: number;
-// }
-
-// interface RemoveGameFromCartProps {
-//   id: number;
-//   game: string;
-// }
-
-// interface UpdateCartProps {
-//   id: number;
-//   game: string;
-//   newQuantity: number;
-// }
 
 interface CartContextProps {
   cart: Games[];
-  addGameIntoCart: (game: Games) => void;
-  removeGameFromCart: (game: Games) => void;
+  addGameIntoCart: (mappedGame: Games, userId?: string) => void;
+  removeGame: (game: Games) => void;
   // updateCart: ({id, game, newQuantity}: UpdateCartProps) => void;
-  payOrder: (customer: CustomerData) => void;
-  confirmOrder: () => void;
 }
 
 interface CartProviderProps {
@@ -48,64 +24,72 @@ interface CartProviderProps {
 
 export const CartContext = createContext({} as CartContextProps);
 
-const localStorageKey = "@gameStore:cart";
+
 
 export function CartProvider({ children }: CartProviderProps) {
-  const router = useRouter();
-  const [cart, setCart] = useState<Games[]>(() => {
-    const value = localStorage.getItem(localStorageKey);
 
-    if (value) return JSON.parse(value);
-    return [];
-  });
+  const [cart, setCart] = useState<Games[]>([]);
 
-  function saveCart(item: Games[]) {
-    setCart(item);
 
-    localStorage.setItem(localStorageKey, JSON.stringify(item));
+
+  const getGames = async () => {
+    const getGamesInCart = await getGamesFromCart();
+    getGamesInCart && setCart(getGamesInCart);
+  };
+
+  useEffect(() => {
+    getGames();
+  }, []);
+
+  async function addGameIntoCart(mappedGame: Games, userId?: string) {
+ 
+    const newGame = { ...mappedGame, quantity: 1, subtotal: mappedGame.price };
+
+
+    toast.success(`${mappedGame.name} Added to cart😎`);
+
+    try {
+      await createGameCart({
+        game: newGame,
+        userId,
+        path: "/",
+      });
+
+      await getGames();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  function clearCart() {
-    setCart([]);
-    localStorage.removeItem(localStorageKey);
-  }
+  async function removeGame(game: Games) {
+    await removeGameFromCart({
+      gameId: game._id,
+      path: "/cart",
+    });
 
-  function addGameIntoCart(game: Games): void {
-    const newGame = { ...game, quantity: 1, subtotal: game.price };
-    const newCart = [...cart, newGame];
-
-    toast.success(`${game.name} Added to cart😎`);
-
-    saveCart(newCart);
-  }
-
-  function removeGameFromCart(game: Games): void {
-    const newCart = cart.filter((item) => item.id !== game.id);
     toast.error(`${game.name} removed from cart😢`);
-    saveCart(newCart);
+
+    await getGames();
+    // saveCart(newCart);
   }
 
-  function confirmOrder() {
-    router.push("/payment");
-  }
+  // function confirmOrder() {
+  //   router.push("/payment");
+  // }
 
+  // function payOrder(customer: CustomerData) {
+  //   console.log("payorder", cart, customer);
+  //   // chamada para o back
 
-  function payOrder(customer: CustomerData) {
-    console.log("payorder", cart, customer);
-    // chamada para o back
-   
-
-    clearCart() // deve ser executado após retorno positivo da API
-  }
+  //   clearCart() // deve ser executado após retorno positivo da API
+  // }
 
   return (
     <CartContext.Provider
       value={{
         cart,
         addGameIntoCart,
-        removeGameFromCart,
-        confirmOrder,
-        payOrder,
+        removeGame,
       }}
     >
       {children}

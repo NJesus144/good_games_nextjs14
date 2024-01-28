@@ -19,7 +19,7 @@ const generateRandomPrice = (): number => {
   return +(Math.random() * (200 - 80) + 80).toFixed(2);
 };
 
-export const generateAndSetRandomPrice = (itemId: number): number => {
+export const generateAndSetRandomPrice = (itemId: string) => {
   const storedPrice = localStorage.getItem(`price_${itemId}`);
 
   if (storedPrice === null) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { getGamesBySearch } from "@/lib/actions/api.action";
+import { getGamesBySearch } from "@/lib/actions/api.actions";
 import { Games } from "@/types";
 import Link from "next/link";
 

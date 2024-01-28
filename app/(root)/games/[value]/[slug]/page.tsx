@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { GameCard } from "@/components/shared/cards/GameCard";
-import { getGamesByGenre, getGamesByPlatform } from "@/lib/actions/api.action";
+import { getGamesByGenre, getGamesByPlatform } from "@/lib/actions/api.actions";
 import PaginationControls from "@/components/shared/paginationControls";
 import { Games } from "@/types";
 import SkeletonCardGame from "@/components/ui/skeletonCardGame";
@@ -56,7 +56,7 @@ const Page = ({ params }: { params: { value: string; slug: string } }) => {
 
   useEffect(() => {
     getGamesPreSlug();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
   return (
     <div>

@@ -37,14 +37,14 @@ export interface Developers {
   image_background: string;
 }
 
-
-export interface Games{
+export interface Games {
+  _id: string;
   quantity: number;
   subtotal: number;
   price: number;
   slug: string;
   rating: number;
-  id: number;
+  id: string;
   name: string;
   description: string;
   metacritic: number;
@@ -64,25 +64,52 @@ export interface GamePerUrl {
   results: Games[];
 }
 
-
 // ======= USER PARAMS =========
 
-
 export type CreateUserParams = {
-  clerkId: string
-  firstName: string
-  lastName: string
-  username: string
-  email: string
-  photo: string
-}
+  clerkId: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  photo: string;
+};
 
 export type UpdateUserParams = {
-  firstName: string
-  lastName: string
-  username: string
-  photo: string
-}
+  firstName: string;
+  lastName: string;
+  username: string;
+  photo: string;
+};
+
+// ======= GAME PARAMS =========
+export type CreateGameParams = {
+  userId: string | undefined;
+  game: {
+    quantity: number;
+    subtotal: number;
+    price: number;
+    slug: string;
+    rating: number;
+    id: string;
+    name: string;
+    description: string;
+    metacritic: number;
+    released: Date;
+    background_image: string;
+    background_image_additional?: string;
+    developers?: Developers[];
+    platforms: Platform[];
+    stores?: Store[];
+    genres: Genre[];
+  };
+  path: string;
+};
+
+export type DeleteGameParams = {
+  gameId: string;
+  path: string;
+};
 
 // export interface GameDetails {
 //   id: number;
@@ -116,7 +143,6 @@ export type UpdateUserParams = {
 //   slug: string;
 //   rating: number;
 // }
-
 
 // export interface GamesWithPrice extends Games {
 //   price: number;

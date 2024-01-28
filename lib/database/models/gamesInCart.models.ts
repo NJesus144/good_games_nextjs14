@@ -1,13 +1,13 @@
 import { Developers, Genre, Platform, Store } from "@/types";
 import { Document, Schema, model, models } from "mongoose";
 
-export interface IGame extends Document {
+export interface IGameInCart extends Document {
+  _id: string;
   quantity: number;
   subtotal: number;
   price: number;
   slug: string;
   rating: number;
-  id: number;
   name: string;
   description: string;
   metacritic: number;
@@ -20,26 +20,26 @@ export interface IGame extends Document {
   genres: Genre[];
 }
 
-const GameSchema = new Schema({
-  quantity: { type: Number, required: true },
-  subtotal: { type: Number, required: true },
-  price: { type: Number, required: true },
+const GameInCartSchema = new Schema({
+  quantity: { type: Number },
+  subtotal: { type: Number },
+  price: { type: Number },
   slug: { type: String, required: true },
   rating: { type: Number, required: true },
   id: { type: Number, required: true },
   name: { type: String, required: true },
-  description: { type: String, required: true },
-  metacritic: { type: Number, required: true },
-  released: { type: Date, required: true },
+  description: { type: String },
+  metacritic: { type: Number },
+  released: { type: Date },
   background_image: { type: String, required: true },
   background_image_additional: { type: String },
   developers: { type: Array },
-  platforms: { type: Array, required: true },
+  platforms: { type: Array },
   stores: { type: Array },
-  genres: { type: Array, required: true },
-  player: {type: Schema.Types.ObjectId, ref: "User"},
+  genres: { type: Array },
+  player: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
-const Game = models.Game || model("Game", GameSchema);
+const GameInCart= models.GameInCart || model("GameInCart", GameInCartSchema);
 
-export default Game;
+export default GameInCart;

@@ -13,9 +13,15 @@ const LeftSidebar = () => {
   const pathname = usePathname();
   const { cart } = useContext(CartContext);
 
-  const quantity = cart.reduce((sumQuantity, game) => {
-    return sumQuantity + game.quantity;
-  }, 0);
+  // const quantity = cart.reduce((sumQuantity, game) => {
+  
+  //   return sumQuantity + game.quantity;
+  // }, 0);
+
+  const quantity = cart.length ;
+
+  console.log("cart", cart);
+
 
   return (
     <section className=" fixed z-50 h-screen  overflow-y-auto border-r-1 border-[#202020] bg-[#151515] px-4 pt-10 text-white max-sm:hidden xl:w-[266px]">
@@ -46,7 +52,7 @@ const LeftSidebar = () => {
           </div>
         );
       })}
-      {quantity !== 0 && (
+      {quantity > 0 && (
         <span className="absolute left-[2.7rem] top-[13.2rem] flex h-6 w-6 items-center justify-center rounded-full bg-red-600 text-base">
           {quantity}
         </span>

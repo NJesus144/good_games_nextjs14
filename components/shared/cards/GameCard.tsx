@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useContext } from "react";
 import { Card, CardFooter } from "@/components/ui/card";
 import { changeRankMetacritic, currencyFormat } from "@/lib/utils";
 import Image from "next/image";
@@ -8,28 +8,37 @@ import ButtonUi from "@/components/ui/button-ui";
 import { PlusIcon, ShoppingCartIcon } from "lucide-react";
 
 import { Games } from "@/types";
-import { CartContext } from "@/contexts/CartContext";
-import { FavoriteContext } from "@/contexts/FavoriteContext";
 
-export function GameCard({ games }: { games: Games[] }) {
-  const { addToWishlist, isFavorite, removeFromWishlist } =
-    React.useContext(FavoriteContext);
-  const { cart, addGameIntoCart } = React.useContext(CartContext);
+import { FavoriteContext } from "@/contexts/FavoriteContext";
+import { CartContext } from "@/contexts/CartContext";
+
+
+interface GameCardProps {
+  userId?: string;
+  games: Games[];
+}
+
+export function GameCard({ userId, games }: GameCardProps) {
+  
+  const {addToWishlist, isFavorite, removeFromWishlist } = useContext(FavoriteContext);
+
+  const { addGameIntoCart, cart } = useContext(CartContext);
+
 
   return (
     <>
       <div className="ml-0 flex max-w-7xl flex-col items-center  gap-16   pb-20 sm:grid-cols-2 md:ml-24 md:grid  lg:grid-cols-2  xl:ml-48 xl:grid-cols-3">
-        {games.map((item) => {
-          const gameExists = cart.find((game) => game.id === item.id);
+        {games.map((mappedGame) => {
+          const gameExists = cart.find((game: Games) => game.id === mappedGame.id);
 
           return (
             <Card
-              key={item.id}
+              key={mappedGame.id}
               className="relative mt-12 h-[350px]  w-[340px] max-w-[340px] border-0  text-white max-lg:w-[280px] max-md:mt-20"
             >
               <Image
-                src={item.background_image}
-                alt={item.name}
+                src={mappedGame.background_image}
+                alt={mappedGame.name}
                 height={0}
                 width={0}
                 sizes="100vw"
@@ -39,24 +48,24 @@ export function GameCard({ games }: { games: Games[] }) {
               <CardFooter className="flex h-full max-h-[190px] flex-col items-start  justify-between gap-4 rounded-b-lg bg-[#202020] p-2 px-4 py-8  max-lg:justify-center  max-lg:py-0">
                 <div className="flex w-full items-center justify-between">
                   <h3 className="text-left text-xl font-bold max-md:text-base">
-                    {item.name}
+                    {mappedGame.name}
                   </h3>
                   <span
                     className={`rounded-md border px-2 ${changeRankMetacritic(
-                      item.metacritic
+                      mappedGame.metacritic
                     )}`}
                   >
-                    {item.metacritic}
+                    {mappedGame.metacritic}
                   </span>
                 </div>
                 <div className="flex gap-2">
-                  <Link href={`/more-details/${item.slug}`}>
+                  <Link href={`/more-details/${mappedGame.slug}`}>
                     <button className="flex items-center gap-2 text-[#666] underline-offset-2 duration-300 ease-in-out hover:text-white hover:underline ">
                       More details <PlusIcon size={20} />
                     </button>
                   </Link>
                   <span className="lg:hidden">
-                    {currencyFormat(item.price)}
+                    {currencyFormat(mappedGame.price)}
                   </span>
                 </div>
 
@@ -65,7 +74,7 @@ export function GameCard({ games }: { games: Games[] }) {
                     <ButtonUi
                       color="primary"
                       otherStyle=" w-[100px] max-lg:w-full "
-                      onClick={() => addGameIntoCart(item)}
+                      onClick={() => addGameIntoCart(mappedGame, userId)}
                     >
                       <ShoppingCartIcon size={20} />
                     </ButtonUi>
@@ -81,15 +90,15 @@ export function GameCard({ games }: { games: Games[] }) {
                     variant="bordered"
                     otherStyle="hover:bg-[#2e2e2e] max-lg:w-full"
                     onClick={() =>
-                      isFavorite(item)
-                        ? removeFromWishlist(item)
-                        : addToWishlist(item)
+                      isFavorite(mappedGame)
+                        ? removeFromWishlist(mappedGame)
+                        : addToWishlist(mappedGame)
                     }
                   >
-                    <span>{isFavorite(item) ? "On the list" : "Wishlist"}</span>
+                    <span>{isFavorite(mappedGame) ? "On the list" : "Wishlist"}</span>
                   </ButtonUi>
                   <span className="max-lg:hidden">
-                    R$ {String(item.price).replace(".", ",")}
+                    R$ {String(mappedGame.price).replace(".", ",")}
                   </span>
                 </div>
               </CardFooter>
