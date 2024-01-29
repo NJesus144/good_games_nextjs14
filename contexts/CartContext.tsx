@@ -1,10 +1,9 @@
 "use client";
-
 import {
   createGameCart,
   getGamesFromCart,
   removeGameFromCart,
-} from "@/lib/actions/game.actions";
+} from "@/lib/actions/gameCart.actions";
 
 import { Games } from "@/types";
 import { createContext, ReactNode, useEffect, useState } from "react";
@@ -37,8 +36,7 @@ export function CartProvider({ children }: CartProviderProps) {
 
   async function addGameIntoCart(mappedGame: Games, userId?: string) {
     const newGame = { ...mappedGame, quantity: 1, subtotal: mappedGame.price };
-    console.log("mappedGame", mappedGame);
-
+   
     try {
       await createGameCart({
         game: newGame,

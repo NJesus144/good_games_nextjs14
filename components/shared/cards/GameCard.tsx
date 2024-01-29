@@ -92,7 +92,7 @@ export function GameCard({ userId, games }: GameCardProps) {
                     onClick={() =>
                       isFavorite(mappedGame)
                         ? removeFromWishlist(mappedGame)
-                        : addToWishlist(mappedGame)
+                        : addToWishlist(mappedGame, userId)
                     }
                   >
                     <span>{isFavorite(mappedGame) ? "On the list" : "Wishlist"}</span>

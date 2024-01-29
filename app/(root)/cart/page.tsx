@@ -2,13 +2,13 @@
 import OrderHeader from "@/components/shared/myOrder/OrderHeader";
 
 import GameCardWishlist from "@/components/shared/cards/GameCardWishlist";
-import React, {  useContext } from "react";
+import React, { useContext } from "react";
 import ConfirmOrder from "@/components/shared/orderCloseAction/ConfirmOrder";
 
 import { CartContext } from "@/contexts/CartContext";
 
 const Cart = () => {
- const { cart } = useContext(CartContext);
+  const { cart } = useContext(CartContext);
 
   if (cart.length === 0)
     return (

@@ -3,11 +3,15 @@ import { generateAndSetRandomPrice } from "@/lib/utils";
 import React, { createContext, useState, ReactNode, useEffect } from "react";
 // import { Game } from "./CartContext";
 import { Games } from "@/types";
+import {
+  addGameWishlist,
+  getGamesFromWishlist,
+  removeGameFromWishlist,
+} from "@/lib/actions/wishlist.actions";
 
 interface FavoriteContextProps {
   favorites: Games[];
-  setFavorites: React.Dispatch<React.SetStateAction<Games[]>>;
-  addToWishlist: (game: Games) => void;
+  addToWishlist: (game: Games, userId?: string) => void;
   removeFromWishlist: (game: Games) => void;
   isFavorite: (game: Games) => boolean;
 }
@@ -18,32 +22,41 @@ interface FavoriteProviderProps {
 
 export const FavoriteContext = createContext({} as FavoriteContextProps);
 
-// export const CartContext = createContext({} as CartContextProps);
-
-
 export function FavoriteProvider({ children }: FavoriteProviderProps) {
-  const [favorites, setFavorites] = useState<Games[]>(() => {
-    const storagedFavorites = localStorage.getItem("@gameStore:favorites");
+  const [favorites, setFavorites] = useState<Games[]>([]);
 
-    if (storagedFavorites) return JSON.parse(storagedFavorites);
-    return [];
-  });
+  const getGames = async () => {
+    const getGamesInWishlist = await getGamesFromWishlist();
+    getGamesInWishlist && setFavorites(getGamesInWishlist);
+  };
 
   useEffect(() => {
-    localStorage.setItem("@gameStore:favorites", JSON.stringify(favorites));
-  }, [favorites]);
+    getGames();
+  }, []);
 
-  const addToWishlist = (game: Games) => {
+  const addToWishlist = async (game: Games, userId?: string) => {
     const gamesPrice = {
       ...game,
       price: generateAndSetRandomPrice(game.id),
     };
 
-    setFavorites([...favorites, gamesPrice]);
+    const wishlistGames = await addGameWishlist({
+      game: gamesPrice,
+      userId,
+      path: "/wishlist",
+    });
+
+    setFavorites([...favorites, wishlistGames]);
   };
 
-  const removeFromWishlist = (game: Games) => {
-    setFavorites(favorites.filter((item) => item.id !== game.id));
+  const removeFromWishlist = async (game: Games) => {
+   
+    await removeGameFromWishlist({
+      gameId: game._id,
+      path: "/wishlist",
+    });
+
+    await getGames();
   };
 
   const isFavorite = (game: Games) =>
@@ -53,7 +66,6 @@ export function FavoriteProvider({ children }: FavoriteProviderProps) {
     <FavoriteContext.Provider
       value={{
         favorites,
-        setFavorites,
         addToWishlist,
         removeFromWishlist,
         isFavorite,

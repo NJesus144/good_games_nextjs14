@@ -1,20 +1,22 @@
-"use server";
-import { revalidatePath } from 'next/cache'
+"use server"
+
 import { CreateGameParams, DeleteGameParams } from "@/types";
 import { connectToDatabase } from "../database";
 import User from "../database/models/user.models";
-import GameInCart from "../database/models/gamesInCart.models";
+import Wishlist from "../database/models/wishlist.models";
+import { revalidatePath } from "next/cache";
 import { handleError } from "../utils";
 
-export const createGameCart = async ({ game, userId, path  }: CreateGameParams) => {
+
+export const addGameWishlist = async ({ game, userId, path  }: CreateGameParams) => {
   try {
     await connectToDatabase();
 
-    const playerCustomer = await User.findById(userId);
+    const plaeyerUser = await User.findById(userId);
 
-    if (!playerCustomer) throw new Error("Player not found");
+    if (!plaeyerUser) throw new Error("Player not found");
 
-    const newGame = await GameInCart.create({
+    const newGame = await Wishlist.create({
       ...game,
       player: userId,
     })
@@ -26,11 +28,11 @@ export const createGameCart = async ({ game, userId, path  }: CreateGameParams) 
   }
 };
 
-export const getGamesFromCart = async () => {
+export const getGamesFromWishlist = async () => {
   try {
     await connectToDatabase();
 
-    const games = await GameInCart.find();
+    const games = await Wishlist.find();
 
     return JSON.parse(JSON.stringify(games));
   } catch (error) {
@@ -39,12 +41,11 @@ export const getGamesFromCart = async () => {
 };
 
 
-
-export const removeGameFromCart = async ({gameId, path}: DeleteGameParams) => {
+export const removeGameFromWishlist = async ({gameId, path}: DeleteGameParams) => {
   try {
     await connectToDatabase();
 
-    const deleteGame = await GameInCart.findByIdAndDelete(gameId);
+    const deleteGame = await Wishlist.findByIdAndDelete(gameId);
     if(deleteGame) revalidatePath(path)
 
     

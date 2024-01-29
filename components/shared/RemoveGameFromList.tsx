@@ -2,6 +2,8 @@ import { Trash2 } from "lucide-react";
 import React, { useContext } from "react";
 import { CartContext } from "@/contexts/CartContext";
 import { Games } from "@/types";
+import { FavoriteContext } from "@/contexts/FavoriteContext";
+
 
 export interface WishListButton {
   wishlist?: boolean;
@@ -18,14 +20,15 @@ interface RemoveGameFromListProps {
 
 const RemoveGameFromList = ({ select, game }: RemoveGameFromListProps) => {
    const { removeGame } = useContext(CartContext);
+  const { removeFromWishlist } = useContext(FavoriteContext);
 
   const handleRemove =  () => {
     if ("cart" in select) {
       removeGame(game)
     }
-    // else if ("wishlist" in select) {
-    //   removeFromWishlist(game);
-    // }
+    else if ("wishlist" in select) {
+      removeFromWishlist(game);
+    }
   };
 
   return (

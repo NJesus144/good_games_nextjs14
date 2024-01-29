@@ -14,9 +14,10 @@ import { Games } from "@/types";
 interface GameCardWishlistProps {
   games: Games[];
   isCart?: boolean;
+  userId? : string 
 }
 
-const GameCardWishlist = ({ games, isCart }: GameCardWishlistProps) => {
+const GameCardWishlist = ({ games, isCart, userId }: GameCardWishlistProps) => {
   const { cart, addGameIntoCart } = useContext(CartContext);
 
   const select: CartButton | WishListButton = isCart ? { cart: true } : { wishlist: true };
@@ -85,7 +86,7 @@ const GameCardWishlist = ({ games, isCart }: GameCardWishlistProps) => {
                   <ButtonUi
                     color="primary"
                     otherStyle=" w-[100px] max-lg:w-full "
-                    onClick={() => addGameIntoCart(mappedGame)}
+                    onClick={() => addGameIntoCart(mappedGame, userId)}
                   >
                     <ShoppingCartIcon size={20} />
                   </ButtonUi>
