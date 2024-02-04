@@ -1,18 +1,19 @@
 "use client";
 import {
   createGameCart,
-  getGamesFromCart,
+  // getGamesFromCart,
   removeGameFromCart,
 } from "@/lib/actions/gameCart.actions";
 
 import { Games } from "@/types";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 import { toast } from "react-toastify";
 
 interface CartContextProps {
   cart: Games[];
-  addGameIntoCart: (mappedGame: Games, userId?: string) => void;
+  addGameIntoCart: (mappedGame: Games, userId: string) => void;
   removeGame: (game: Games) => void;
+
   // updateCart: ({id, game, newQuantity}: UpdateCartProps) => void;
 }
 
@@ -23,18 +24,10 @@ interface CartProviderProps {
 export const CartContext = createContext({} as CartContextProps);
 
 export function CartProvider({ children }: CartProviderProps) {
-  const [cart, setCart] = useState<Games[]>([]);
+   const [cart, setCart] = useState<Games[]>([]);
 
-  const getGames = async () => {
-    const getGamesInCart = await getGamesFromCart();
-    getGamesInCart && setCart(getGamesInCart);
-  };
 
-  useEffect(() => {
-    getGames();
-  }, []);
-
-  async function addGameIntoCart(mappedGame: Games, userId?: string) {
+  async function addGameIntoCart(mappedGame: Games, userId: string) {
     const newGame = { ...mappedGame, quantity: 1, subtotal: mappedGame.price };
    
     try {
@@ -45,7 +38,7 @@ export function CartProvider({ children }: CartProviderProps) {
       });
 
       toast.success(`${mappedGame.name} Added to cart😎`);
-      await getGames();
+      
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +52,7 @@ export function CartProvider({ children }: CartProviderProps) {
 
     toast.error(`${game.name} removed from cart😢`);
 
-    await getGames();
+    // await getGames(game._id);
     // saveCart(newCart);
   }
 
@@ -80,6 +73,7 @@ export function CartProvider({ children }: CartProviderProps) {
         cart,
         addGameIntoCart,
         removeGame,
+        // getGamesFromCartByUserId
       }}
     >
       {children}

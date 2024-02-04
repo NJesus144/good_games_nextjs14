@@ -1,10 +1,16 @@
 "use client";
 import React, { useContext } from "react";
 import { FavoriteContext } from "@/contexts/FavoriteContext";
-import GameCardWishlist from "@/components/shared/cards/GameCardWishlist";
+import Card from "@/components/shared/cards/Card";
 import Title from "@/components/ui/title";
+import { Games } from "@/types";
 
-const Wishlist = ({ userId }: { userId: string }) => {
+ interface WishlistProps {
+  userId: string;
+  cart: Games[];
+ }
+
+const Wishlist = ({ userId, cart }: WishlistProps) => {
   const { favorites } = useContext(FavoriteContext);
 
   return (
@@ -24,7 +30,7 @@ const Wishlist = ({ userId }: { userId: string }) => {
         </p>
       )}
       <div className="m-auto flex max-w-5xl flex-col gap-4 pt-6 text-white sm:ml-24 md:ml-24 xl:ml-48">
-        <GameCardWishlist games={favorites} isCart={false} userId={userId}/>
+        <Card games={favorites} isCart={false} userId={userId} cart={cart}/>
       </div>
     </>
   );

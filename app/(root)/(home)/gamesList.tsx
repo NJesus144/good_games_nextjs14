@@ -9,7 +9,15 @@ import SkeletonCardGame from "@/components/ui/skeletonCardGame";
 import { generateAndSetRandomPrice } from "@/lib/utils";
 import { Games } from "@/types";
 
-const GamesList = ({ userId }: { userId: string }) => {
+
+interface GamesListProps {
+  userId: string;
+  cart: Games[];
+}
+
+const GamesList = ({ userId, cart }: GamesListProps) => {
+
+  
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [gamesData, setGamesData] = useState<Games[]>([]);
@@ -50,7 +58,7 @@ const GamesList = ({ userId }: { userId: string }) => {
         </div>
       ) : (
         <>
-          <GameCard games={gamesData} userId={userId} />
+          <GameCard games={gamesData} userId={userId} cart={cart}/>
           <PaginationControls
             page={page}
             setPage={setPage}

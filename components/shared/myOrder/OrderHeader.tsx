@@ -6,7 +6,7 @@ import { ShoppingBagIcon } from "lucide-react";
 import { useContext } from "react";
 
 const OrderHeader = () => {
-  const { cart } = useContext(CartContext);
+  // const { cart } = useContext(CartContext);
  
 
   return (
@@ -18,7 +18,7 @@ const OrderHeader = () => {
         </div>
 
         <span className="text-sky-500">
-          <strong>{`${cart.length}`.padStart(2, "0")}</strong> Game(s)
+          {/* <strong>{`${cart.length}`.padStart(2, "0")}</strong> Game(s) */}
         </span>
       </div>
     </header>

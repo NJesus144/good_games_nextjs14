@@ -5,6 +5,9 @@ import { connectToDatabase } from "../database";
 import User from "../database/models/user.models";
 import GameInCart from "../database/models/gamesInCart.models";
 import { handleError } from "../utils";
+import mongoose from 'mongoose';
+
+
 
 export const createGameCart = async ({ game, userId, path  }: CreateGameParams) => {
   try {
@@ -26,12 +29,16 @@ export const createGameCart = async ({ game, userId, path  }: CreateGameParams) 
   }
 };
 
-export const getGamesFromCart = async () => {
+export const getGamesFromCart = async (userId: string) => {
   try {
     await connectToDatabase();
 
-    const games = await GameInCart.find();
+    console.log(userId, 'userId')
 
+
+    const games = await GameInCart.find({ player: new mongoose.Types.ObjectId(userId) });
+
+      console.log(games, 'games')
     return JSON.parse(JSON.stringify(games));
   } catch (error) {
     handleError(error);

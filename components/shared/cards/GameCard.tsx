@@ -1,4 +1,4 @@
-import { useContext } from "react";
+// import { useContext } from "react";
 import { Card, CardFooter } from "@/components/ui/card";
 import { changeRankMetacritic, currencyFormat } from "@/lib/utils";
 import Image from "next/image";
@@ -10,26 +10,29 @@ import { PlusIcon, ShoppingCartIcon } from "lucide-react";
 import { Games } from "@/types";
 
 import { FavoriteContext } from "@/contexts/FavoriteContext";
+
+import { useContext } from "react";
 import { CartContext } from "@/contexts/CartContext";
 
-
 interface GameCardProps {
-  userId?: string;
+  userId: string;
   games: Games[];
+  cart: Games[];
 }
 
-export function GameCard({ userId, games }: GameCardProps) {
-  
-  const {addToWishlist, isFavorite, removeFromWishlist } = useContext(FavoriteContext);
+export function GameCard({ userId, games, cart }: GameCardProps) {
+  const { addToWishlist, isFavorite, removeFromWishlist } =
+    useContext(FavoriteContext);
 
-  const { addGameIntoCart, cart } = useContext(CartContext);
-
+  const { addGameIntoCart } = useContext(CartContext);
 
   return (
     <>
       <div className="ml-0 flex max-w-7xl flex-col items-center  gap-16   pb-20 sm:grid-cols-2 md:ml-24 md:grid  lg:grid-cols-2  xl:ml-48 xl:grid-cols-3">
         {games.map((mappedGame) => {
-          const gameExists = cart.find((game: Games) => game.id === mappedGame.id);
+          const gameExists = cart.find(
+            (game: Games) => game.id === mappedGame.id
+          );
 
           return (
             <Card
@@ -79,12 +82,14 @@ export function GameCard({ userId, games }: GameCardProps) {
                       <ShoppingCartIcon size={20} />
                     </ButtonUi>
                   ) : (
-                    <ButtonUi
-                      color="primary"
-                      otherStyle=" max-lg:w-full w-[100px]"
-                    >
-                      <Link href="/cart">In Cart</Link>
-                    </ButtonUi>
+                    <Link href="/cart">
+                      <ButtonUi
+                        color="primary"
+                        otherStyle=" max-lg:w-full w-[100px]"
+                      >
+                        In Cart
+                      </ButtonUi>
+                    </Link>
                   )}
                   <ButtonUi
                     variant="bordered"
@@ -95,7 +100,9 @@ export function GameCard({ userId, games }: GameCardProps) {
                         : addToWishlist(mappedGame, userId)
                     }
                   >
-                    <span>{isFavorite(mappedGame) ? "On the list" : "Wishlist"}</span>
+                    <span>
+                      {isFavorite(mappedGame) ? "On the list" : "Wishlist"}
+                    </span>
                   </ButtonUi>
                   <span className="max-lg:hidden">
                     R$ {String(mappedGame.price).replace(".", ",")}

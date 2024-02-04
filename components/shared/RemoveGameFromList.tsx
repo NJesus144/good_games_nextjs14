@@ -1,3 +1,4 @@
+"use client"
 import { Trash2 } from "lucide-react";
 import React, { useContext } from "react";
 import { CartContext } from "@/contexts/CartContext";

@@ -1,3 +1,4 @@
+"use client"
 import React, { useContext } from "react";
 
 import ButtonUi from "@/components/ui/button-ui";
@@ -7,25 +8,30 @@ import Link from "next/link";
 
 import { PlusIcon, ShoppingCartIcon } from "lucide-react";
 import { changeRankMetacritic } from "@/lib/utils";
-import { CartContext } from "@/contexts/CartContext";
+
 import RemoveGameFromList, { CartButton, WishListButton } from "../RemoveGameFromList";
 import { Games } from "@/types";
+
+import { CartContext } from "@/contexts/CartContext";
 
 interface GameCardWishlistProps {
   games: Games[];
   isCart?: boolean;
-  userId? : string 
+  userId: string;
+  cart: Games[];
 }
 
-const GameCardWishlist = ({ games, isCart, userId }: GameCardWishlistProps) => {
-  const { cart, addGameIntoCart } = useContext(CartContext);
-
+const Card = ({ games, isCart, userId, cart }: GameCardWishlistProps) => {
+ 
   const select: CartButton | WishListButton = isCart ? { cart: true } : { wishlist: true };
+
+  const { addGameIntoCart } = useContext(CartContext);
+
 
   return (
     <>
       {games.map((mappedGame) => {
-        const gameExists = cart.find((game) => game.id === mappedGame.id);
+         const gameExists = cart.find((game) => game.id === mappedGame.id);
         
         return (
           <div
@@ -108,4 +114,4 @@ const GameCardWishlist = ({ games, isCart, userId }: GameCardWishlistProps) => {
   );
 };
 
-export default GameCardWishlist;
+export default Card;
