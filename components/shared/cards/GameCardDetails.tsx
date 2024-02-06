@@ -15,11 +15,12 @@ import Link from "next/link";
 
 interface GameCardDetailsProps {
   gameDetails: Games;
-  userId: string
+  userId: string;
 }
 
 const GameCardDetails = ({ gameDetails, userId }: GameCardDetailsProps) => {
-  const { addToWishlist, isFavorite, removeFromWishlist } = useContext(FavoriteContext);
+  const { addToWishlist, isFavorite, removeFromWishlist } =
+    useContext(FavoriteContext);
   const { cart, addGameIntoCart } = useContext(CartContext);
 
   const developer = gameDetails.developers?.map((developer) => developer.name);
@@ -27,10 +28,7 @@ const GameCardDetails = ({ gameDetails, userId }: GameCardDetailsProps) => {
     (platform) => platform.platform.name
   );
 
- 
   const gameExists = cart.find((game: Games) => game.id === gameDetails.id);
-
-  console.log("cart", cart)
 
   const price = localStorage.getItem(`price_${gameDetails.id}`);
 
@@ -38,8 +36,6 @@ const GameCardDetails = ({ gameDetails, userId }: GameCardDetailsProps) => {
     ...gameDetails,
     price: Number(price),
   };
-
-  console.log("newGame", newGame)
 
   return (
     <section className="mx-auto flex max-w-7xl flex-col gap-4  p-12 pb-20 text-white">

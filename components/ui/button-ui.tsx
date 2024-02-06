@@ -31,7 +31,7 @@ export default function ButtonUi({
   otherStyle,
   color,
   isLoading,
-  onClick
+  onClick,
 }: Props) {
   return (
     <Button
