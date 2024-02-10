@@ -1,11 +1,11 @@
-"use client";
 import { currencyFormat } from "@/lib/utils";
-import { CartContext } from "@/contexts/CartContext";
-import React, { useContext } from "react";
+import { Games } from "@/types";
 
-const ConfirmOrder = () => {
-  const { cart, confirmOrder } = useContext(CartContext);
+interface ConfirmOrderProps {
+  cart: Games[];
+}
 
+const ConfirmOrder = ({ cart }: ConfirmOrderProps) => {
   const totalAmount = cart.reduce((acc, item) => (acc += item.subtotal), 0);
 
   return (
@@ -14,7 +14,7 @@ const ConfirmOrder = () => {
         <h3 className="text-2xl font-semibold">Total</h3>
         <p className="text-2xl font-semibold">{currencyFormat(totalAmount)}</p>
       </div>
-      <button className="w-full rounded-md bg-green-500 py-3 font-semibold uppercase hover:bg-green-600" onClick={confirmOrder}>
+      <button className="w-full rounded-md bg-green-500 py-3 font-semibold uppercase hover:bg-green-600">
         Confirm Order
       </button>
     </div>

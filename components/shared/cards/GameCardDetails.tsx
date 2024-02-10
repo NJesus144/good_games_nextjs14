@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 
 import { Games } from "@/types";
 import { FavoriteContext } from "@/contexts/FavoriteContext";
-import { CartContext } from "@/contexts/CartContext";
 import Image from "next/image";
 import ButtonUi from "@/components/ui/button-ui";
 import { Divider } from "@nextui-org/react";
@@ -12,16 +11,22 @@ import { CATEGORY_ICON } from "@/constants/categoryIcons";
 import { changeRankMetacritic, currencyFormat } from "@/lib/utils";
 
 import Link from "next/link";
+import { CartContext } from "@/contexts/CartContext";
 
 interface GameCardDetailsProps {
   gameDetails: Games;
   userId: string;
+  cart: Games[];
 }
 
-const GameCardDetails = ({ gameDetails, userId }: GameCardDetailsProps) => {
+const GameCardDetails = ({
+  gameDetails,
+  userId,
+  cart,
+}: GameCardDetailsProps) => {
   const { addToWishlist, isFavorite, removeFromWishlist } =
     useContext(FavoriteContext);
-  const { cart, addGameIntoCart } = useContext(CartContext);
+  const { addGameIntoCart } = useContext(CartContext);
 
   const developer = gameDetails.developers?.map((developer) => developer.name);
   const platforms = gameDetails.platforms.map(
@@ -89,7 +94,7 @@ const GameCardDetails = ({ gameDetails, userId }: GameCardDetailsProps) => {
                 if (isFavorite(newGame)) {
                   removeFromWishlist(newGame);
                 } else {
-                  addToWishlist(newGame);
+                  addToWishlist(newGame, userId);
                 }
               }}
             >

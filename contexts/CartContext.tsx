@@ -14,7 +14,6 @@ interface CartContextProps {
   addGameIntoCart: (mappedGame: Games, userId: string) => void;
   removeGame: (game: Games) => void;
 
-  // updateCart: ({id, game, newQuantity}: UpdateCartProps) => void;
 }
 
 interface CartProviderProps {
@@ -24,7 +23,7 @@ interface CartProviderProps {
 export const CartContext = createContext({} as CartContextProps);
 
 export function CartProvider({ children }: CartProviderProps) {
-   const [cart, setCart] = useState<Games[]>([]);
+   const [cart] = useState<Games[]>([]);
 
 
   async function addGameIntoCart(mappedGame: Games, userId: string) {

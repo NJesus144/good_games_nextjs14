@@ -11,7 +11,7 @@ import {
 
 interface FavoriteContextProps {
   favorites: Games[];
-  addToWishlist: (game: Games, userId?: string) => void;
+  addToWishlist: (game: Games, userId: string) => void;
   removeFromWishlist: (game: Games) => void;
   isFavorite: (game: Games) => boolean;
 }
@@ -34,7 +34,7 @@ export function FavoriteProvider({ children }: FavoriteProviderProps) {
     getGames();
   }, []);
 
-  const addToWishlist = async (game: Games, userId?: string) => {
+  const addToWishlist = async (game: Games, userId: string) => {
     const gamesPrice = {
       ...game,
       price: generateAndSetRandomPrice(game.id),

@@ -14,11 +14,7 @@ const PayOrder = () => {
         <h3 className="text-2xl font-semibold">Total</h3>
         <p className="text-2xl font-semibold">{currencyFormat(totalAmount)}</p>
       </div>
-      <button
-      
-        className="w-full rounded-md bg-green-500 py-3 font-semibold uppercase hover:bg-green-600"
-        
-      >
+      <button className="w-full rounded-md bg-green-500 py-3 font-semibold uppercase hover:bg-green-600">
         Payment
       </button>
     </div>

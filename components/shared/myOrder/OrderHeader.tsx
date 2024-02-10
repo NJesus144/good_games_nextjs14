@@ -1,14 +1,6 @@
-"use client";
-
-
-import { CartContext } from "@/contexts/CartContext";
 import { ShoppingBagIcon } from "lucide-react";
-import { useContext } from "react";
 
 const OrderHeader = () => {
-  // const { cart } = useContext(CartContext);
- 
-
   return (
     <header className=" text-white">
       <div className="flex flex-col gap-2">

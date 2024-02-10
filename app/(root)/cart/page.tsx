@@ -26,7 +26,7 @@ const Cart = async () => {
         <OrderHeader />
         <Card games={cart} isCart={true} userId={userId} cart={cart} />
 
-        <ConfirmOrder />
+        <ConfirmOrder cart={cart}/>
       </div>
     </>
   );
