@@ -16,7 +16,7 @@ const LeftSidebar = ({ userId }: { userId: string }) => {
   useEffect(() => {
     const getQuantityCart = async () => {
       const response = await getGamesFromCart(userId);
-      setQuantity(response.length);
+      setQuantity(response?.length);
     };
 
     getQuantityCart();

@@ -1,11 +1,15 @@
 import { currencyFormat } from "@/lib/utils";
-import { Games } from "@/types";
+// import { Games } from "@/types";
+import { SignedIn } from "@clerk/nextjs";
+import Checkout from "./Checkout";
+import { IGameInCart } from "@/lib/database/models/gamesInCart.models";
 
 interface ConfirmOrderProps {
-  cart: Games[];
+  cart: IGameInCart[];
+  userId: string;
 }
 
-const ConfirmOrder = ({ cart }: ConfirmOrderProps) => {
+const ConfirmOrder = ({ cart, userId }: ConfirmOrderProps) => {
   const totalAmount = cart.reduce((acc, item) => (acc += item.subtotal), 0);
 
   return (
@@ -14,9 +18,10 @@ const ConfirmOrder = ({ cart }: ConfirmOrderProps) => {
         <h3 className="text-2xl font-semibold">Total</h3>
         <p className="text-2xl font-semibold">{currencyFormat(totalAmount)}</p>
       </div>
-      <button className="w-full rounded-md bg-green-500 py-3 font-semibold uppercase hover:bg-green-600">
-        Confirm Order
-      </button>
+      
+      <SignedIn>
+        <Checkout order={cart} userId={userId} />
+      </SignedIn>
     </div>
   );
 };

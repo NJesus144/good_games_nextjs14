@@ -9,5 +9,6 @@ export default async function Home() {
 
   const cart = await getGamesFromCart(userId);
 
+
   return <GamesList userId={userId} cart={cart} />;
 }

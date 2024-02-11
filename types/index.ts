@@ -1,3 +1,4 @@
+import { IGameInCart } from "@/lib/database/models/gamesInCart.models";
 import { LucideIcon } from "lucide-react";
 
 export interface SidebarLink {
@@ -110,6 +111,19 @@ export type DeleteGameParams = {
   gameId: string;
   path: string;
 };
+
+
+export type CheckoutOrderParams = {
+  order: IGameInCart[];
+}
+
+export type CreateOrderParams = {
+  stripeId: string
+  // eventId: string
+  buyerId: string
+  totalAmount: string
+  createdAt: Date
+}
 
 // export interface GameDetails {
 //   id: number;
