@@ -28,7 +28,7 @@ export function CartProvider({ children }: CartProviderProps) {
 
   async function addGameIntoCart(mappedGame: Games, userId: string) {
     const newGame = { ...mappedGame, quantity: 1, subtotal: mappedGame.price };
-   
+
     try {
       await createGameCart({
         game: newGame,

@@ -2,10 +2,10 @@ import { currencyFormat } from "@/lib/utils";
 // import { Games } from "@/types";
 import { SignedIn } from "@clerk/nextjs";
 import Checkout from "./Checkout";
-import { IGameInCart } from "@/lib/database/models/gamesInCart.models";
+import { IProduct } from "@/lib/database/models/product.model";
 
 interface ConfirmOrderProps {
-  cart: IGameInCart[];
+  cart: IProduct[];
   userId: string;
 }
 
@@ -18,9 +18,9 @@ const ConfirmOrder = ({ cart, userId }: ConfirmOrderProps) => {
         <h3 className="text-2xl font-semibold">Total</h3>
         <p className="text-2xl font-semibold">{currencyFormat(totalAmount)}</p>
       </div>
-      
+
       <SignedIn>
-        <Checkout order={cart} userId={userId} />
+        <Checkout games={cart} userId={userId} />
       </SignedIn>
     </div>
   );

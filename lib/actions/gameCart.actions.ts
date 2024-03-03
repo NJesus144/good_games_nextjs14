@@ -3,7 +3,7 @@ import { revalidatePath } from "next/cache";
 import { CreateGameParams, DeleteGameParams } from "@/types";
 import { connectToDatabase } from "../database";
 import User from "../database/models/user.models";
-import GameInCart from "../database/models/gamesInCart.models";
+import GameInCart from "../database/models/product.model";
 import { handleError } from "../utils";
 import mongoose from "mongoose";
 
@@ -16,7 +16,6 @@ export const createGameCart = async ({
     await connectToDatabase();
 
     const playerCustomer = await User.findById(userId);
-
     if (!playerCustomer) throw new Error("Player not found");
 
     const newGame = await GameInCart.create({

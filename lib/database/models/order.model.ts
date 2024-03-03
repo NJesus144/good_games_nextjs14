@@ -1,28 +1,21 @@
-import { Schema, model, models, Document } from 'mongoose'
+import { Schema, model, models, Document } from "mongoose";
 
 export interface IOrder extends Document {
-  createdAt: Date
-  stripeId: string
-  totalAmount: string
-  game: {
-    _id: string
-    title: string
-  }
-  buyer: {
-    _id: string
-    firstName: string
-    lastName: string
-  }
+  createdAt: Date;
+  stripeId: string;
+  totalAmount: string;
+  product: { _id: string; name: string };
+  buyer: { _id: string; firstName: string; lastName: string };
 }
 
 export type IOrderItem = {
-  _id: string
-  totalAmount: string
-  createdAt: Date
-  gameTitle: string
-  gameId: string
-  buyer: string
-}
+  _id: string;
+  totalAmount: string;
+  createdAt: Date;
+  productName: string;
+  productId: string;
+  buyer: string;
+};
 
 const OrderSchema = new Schema({
   createdAt: {
@@ -37,16 +30,16 @@ const OrderSchema = new Schema({
   totalAmount: {
     type: String,
   },
-  game: {
+  product: {
     type: Schema.Types.ObjectId,
-    ref: 'Game',
+    ref: "Product",
   },
   buyer: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
   },
-})
+});
 
-const Order = models.Order || model('Order', OrderSchema)
+const Order = models.Order || model("Order", OrderSchema);
 
-export default Order
+export default Order;

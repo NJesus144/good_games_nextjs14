@@ -1,7 +1,7 @@
 import { Developers, Genre, Platform, Store } from "@/types";
 import { Document, Schema, model, models } from "mongoose";
 
-export interface IGameInCart extends Document {
+export interface IProduct extends Document {
   _id: string;
   quantity: number;
   subtotal: number;
@@ -18,9 +18,10 @@ export interface IGameInCart extends Document {
   platforms: Platform[];
   stores?: Store[];
   genres: Genre[];
+  player: { _id: string; firstName: string; lastName: string };
 }
 
-const GameInCartSchema = new Schema({
+const ProductSchema = new Schema({
   quantity: { type: Number },
   subtotal: { type: Number },
   price: { type: Number },
@@ -40,6 +41,6 @@ const GameInCartSchema = new Schema({
   player: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
-const GameInCart= models.GameInCart || model("GameInCart", GameInCartSchema);
+const Product = models.Product || model("Product", ProductSchema);
 
-export default GameInCart;
+export default Product;

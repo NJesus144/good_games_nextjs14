@@ -6,7 +6,7 @@ import { connectToDatabase } from "@/lib/database";
 import User from "@/lib/database/models/user.models";
 import { handleError } from "@/lib/utils";
 import { CreateUserParams, UpdateUserParams } from "@/types";
-import Game from "../database/models/gamesInCart.models";
+import Game from "../database/models/product.model";
 import Order from "../database/models/order.model";
 
 export const createUser = async (user: CreateUserParams) => {
