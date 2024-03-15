@@ -17,7 +17,6 @@ interface GamesListProps {
 
 const GamesList = ({ userId, cart }: GamesListProps) => {
 
-  
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [gamesData, setGamesData] = useState<Games[]>([]);

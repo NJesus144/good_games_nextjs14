@@ -1,13 +1,17 @@
 "use client";
+import React, { useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 
 import { checkoutOrder } from "@/lib/actions/order.actions";
 import { IProduct } from "@/lib/database/models/product.model";
-import React, { useEffect } from "react";
 
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 const Checkout = ({ games, userId }: { games: IProduct[]; userId: string }) => {
+
+  
+  
+
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
@@ -23,6 +27,7 @@ const Checkout = ({ games, userId }: { games: IProduct[]; userId: string }) => {
   }, []);
 
   const onCheckout = async () => {
+   
     const orders = games.map((game: IProduct) => {
       return {
         productName: game.name,
@@ -31,7 +36,11 @@ const Checkout = ({ games, userId }: { games: IProduct[]; userId: string }) => {
         buyerId: userId,
       };
     });
-    await checkoutOrder(orders);
+
+   
+
+   await checkoutOrder(orders, userId);
+
   };
 
   return (

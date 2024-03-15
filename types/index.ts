@@ -123,9 +123,9 @@ export type CheckoutOrderParams = {
 
 export type CreateOrderParams = {
   stripeId: string;
-  productId: string;
+  productIds: string[];
   buyerId: string;
-  totalAmount: string;
+  totalAmount: string | number; 
   createdAt: Date;
 };
 

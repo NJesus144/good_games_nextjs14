@@ -8,7 +8,7 @@ const Page = async () => {
   const userId = sessionClaims?.userId as string;
 
   const orders = await getOrdersByUser({ userId });
-   console.log("orders", orders);
+   console.log("orders cart", orders?.data.items);
 
   return (
     <div className="ml-40 mt-5 text-6xl font-semibold text-white">
