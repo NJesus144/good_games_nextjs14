@@ -60,14 +60,14 @@ export const createOrder = async (order: CreateOrderParams) => {
 
     const products = await Product.find({ _id: { $in: order.productIds } });
 
-    // Mapear os produtos para o formato de itens de ordem
+   
     const orderItems = products.map((product) => ({
       productId: product._id,
       productName: product.name,
       background: product.background_image,
     }));
 
-    // Criar a ordem no banco de dados incluindo os itens
+
     const newOrder = await Order.create({
       ...order,
       buyer: order.buyerId,
@@ -103,20 +103,10 @@ export async function getOrdersByUser({ userId }: GetOrdersByUserParams) {
 
     const conditions = { buyer: userId };
 
-    // console.log("conditions", conditions);
-
+    
     const orders = await Order.find(conditions);
-
-    // const orders = await Order.find(conditions).populate({
-    //   path: "product",
-    //   model: Product,
-    //   populate: {
-    //     path: "player",
-    //     model: User,
-    //     select: "_id firstName lastName",
-    //   },
-    // });
-
+    
+    
     return {
       data: JSON.parse(JSON.stringify(orders)),
     };
@@ -124,3 +114,13 @@ export async function getOrdersByUser({ userId }: GetOrdersByUserParams) {
     handleError(error);
   }
 }
+// console.log("conditions", conditions);
+// const orders = await Order.find(conditions).populate({
+//   path: "product",
+//   model: Product,
+//   populate: {
+//     path: "player",
+//     model: User,
+//     select: "_id firstName lastName",
+//   },
+// });
