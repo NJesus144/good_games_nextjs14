@@ -7,11 +7,7 @@ import GameInCart from "../database/models/product.model";
 import { handleError } from "../utils";
 import mongoose from "mongoose";
 
-export const createGameCart = async ({
-  game,
-  userId,
-  path,
-}: CreateGameParams) => {
+export const createGameCart = async ({game,userId,path,}: CreateGameParams) => {
   try {
     await connectToDatabase();
 
@@ -44,15 +40,22 @@ export const getGamesFromCart = async (userId: string) => {
   }
 };
 
-export const removeGameFromCart = async ({
-  gameId,
-  path,
-}: DeleteGameParams) => {
+export const removeGameFromCart = async ({gameId,path,}: DeleteGameParams) => {
   try {
     await connectToDatabase();
 
     const deleteGame = await GameInCart.findByIdAndDelete(gameId);
     if (deleteGame) revalidatePath(path);
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const removeAllGamesFromCart = async (userId: string) => {
+  try {
+    await connectToDatabase();
+
+    await GameInCart.deleteMany({ player: userId });
   } catch (error) {
     handleError(error);
   }

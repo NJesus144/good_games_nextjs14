@@ -12,6 +12,7 @@ import {
 import { connectToDatabase } from "../database";
 import Order from "../database/models/order.model";
 import { handleError } from "../utils";
+import { removeAllGamesFromCart } from "./gameCart.actions";
 // import User from "../database/models/user.models";
 
 export const checkoutOrder = async (
@@ -54,19 +55,18 @@ export const checkoutOrder = async (
     throw error;
   }
 };
+ 
 export const createOrder = async (order: CreateOrderParams) => {
   try {
     await connectToDatabase();
 
     const products = await Product.find({ _id: { $in: order.productIds } });
 
-   
     const orderItems = products.map((product) => ({
       productId: product._id,
       productName: product.name,
       background: product.background_image,
     }));
-
 
     const newOrder = await Order.create({
       ...order,
@@ -74,38 +74,21 @@ export const createOrder = async (order: CreateOrderParams) => {
       items: orderItems,
     });
 
+    if(newOrder) await removeAllGamesFromCart(order.buyerId);
+    
+
     return JSON.parse(JSON.stringify(newOrder));
   } catch (error) {
     handleError(error);
   }
 };
-// export const createOrder = async (order: CreateOrderParams) => {
-//   try {
-//     await connectToDatabase();
-
-//     const product = await Product.findById(order.productId);
-
-//     const newOrder = await Order.create({
-//       ...order,
-//       product: product._id,
-//       buyer: order.buyerId,
-//     });
-
-//     return JSON.parse(JSON.stringify(newOrder));
-//   } catch (error) {
-//     handleError(error);
-//   }
-// };
 
 export async function getOrdersByUser({ userId }: GetOrdersByUserParams) {
   try {
     await connectToDatabase();
 
     const conditions = { buyer: userId };
-
-    
     const orders = await Order.find(conditions);
-    
     
     return {
       data: JSON.parse(JSON.stringify(orders)),
@@ -114,13 +97,4 @@ export async function getOrdersByUser({ userId }: GetOrdersByUserParams) {
     handleError(error);
   }
 }
-// console.log("conditions", conditions);
-// const orders = await Order.find(conditions).populate({
-//   path: "product",
-//   model: Product,
-//   populate: {
-//     path: "player",
-//     model: User,
-//     select: "_id firstName lastName",
-//   },
-// });
+

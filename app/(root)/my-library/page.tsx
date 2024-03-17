@@ -12,6 +12,7 @@ interface Items {
   productName: string;
   background: string;
   buyer: string;
+  createdAt: string;
 }
 
 interface Order {
@@ -34,10 +35,14 @@ const Page = async () => {
       productId: item.productId,
       productName: item.productName,
       background: item.background,
+      createdAt: order.createdAt,
     }));
   });
 
-  const data = orders?.data.map((order: Order) => order.createdAt);
+  const purchaseDate = orders?.data.map((order: Order) => order.createdAt);
+  const date = purchaseDate?.map((date: string) => date);
+
+  console.log("date", date);
 
   return (
     <div className="mt-5 text-6xl font-semibold text-white sm:ml-20  xl:ml-48">
@@ -84,7 +89,9 @@ const Page = async () => {
                           Dowload <ArrowDown />{" "}
                         </ButtonUi>
                       </td>
-                      <td className="min-w-[150px] py-4">{formatDate(data)}</td>
+                      <td className="min-w-[150px] py-4">
+                        {formatDate(item.createdAt)}
+                      </td>
                     </tr>
                   ))
                 )}
