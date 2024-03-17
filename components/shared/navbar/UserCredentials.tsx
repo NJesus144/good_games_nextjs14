@@ -1,5 +1,6 @@
+import ButtonUi from "@/components/ui/button-ui";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { Button, Link, NavbarContent, NavbarItem } from "@nextui-org/react";
+import { Link, NavbarContent, NavbarItem } from "@nextui-org/react";
 import React from "react";
 
 const UserCredentials = () => {
@@ -7,9 +8,9 @@ const UserCredentials = () => {
     <NavbarContent justify="end">
       <div className="flex gap-4">
         <SignedOut>
-          <Button size="sm" variant="solid" className="bg-[#0EA5E9] text-white">
-            <Link href="/sign-in">Login</Link>
-          </Button>
+          <ButtonUi color="primary">
+            <Link href="/sign-in" className="text-white">Login</Link>
+          </ButtonUi>
         </SignedOut>
 
         {/* <Button size="sm" variant="solid" className="bg-[#0EA5E9] text-white">
