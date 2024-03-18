@@ -123,7 +123,7 @@ export type CheckoutOrderParams = {
 
 export type CreateOrderParams = {
   stripeId: string;
-  productIds: string[];
+  productIds: string[] | string;
   buyerId: string;
   totalAmount: string | number; 
   createdAt: Date;
@@ -133,55 +133,3 @@ export type GetOrdersByUserParams = {
   userId: string | null;
 };
 
-// export interface GameDetails {
-//   id: number;
-//   name: string;
-//   description: string;
-//   metacritic: number;
-//   released: Date;
-//   background_image: string;
-//   background_image_additional?: string;
-//   developers?: Developers[];
-//   platforms: Platform[];
-//   stores?: Store[];
-//   genres: Genre[];
-// }
-
-// export interface Games {
-//   id: number;
-//   slug: string;
-//   name: string;
-//   description: string;
-//   released: Date;
-//   background_image: string;
-//   rating: number;
-//   metacritic: number;
-//   platforms: Platform[];
-//   genres: Genre[];
-// }
-
-// export interface NewGamesDetails extends GamesWithPrice, GameDetails {
-//   price: number;
-//   slug: string;
-//   rating: number;
-// }
-
-// export interface GamesWithPrice extends Games {
-//   price: number;
-// }
-// interface Game {
-//   id: number;
-//   name: string;
-//   description: string;
-//   metacritic: number;
-//   released: Date;
-//   background_image: string;
-//   background_image_additional?: string;
-//   developers?: Developers[];
-//   platforms: Platform[];
-//   stores?: Store[];
-//   genres: Genre[];
-//   price: number;
-//   slug: string;
-//   rating: number;
-// }

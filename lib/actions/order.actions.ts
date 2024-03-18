@@ -13,7 +13,7 @@ import { connectToDatabase } from "../database";
 import Order from "../database/models/order.model";
 import { handleError } from "../utils";
 import { removeAllGamesFromCart } from "./gameCart.actions";
-// import User from "../database/models/user.models";
+
 
 export const checkoutOrder = async (
   orders: CheckoutOrderParams[],

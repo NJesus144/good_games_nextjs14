@@ -12,10 +12,6 @@ const UserCredentials = () => {
             <Link href="/sign-in" className="text-white">Login</Link>
           </ButtonUi>
         </SignedOut>
-
-        {/* <Button size="sm" variant="solid" className="bg-[#0EA5E9] text-white">
-          <Link href="/sign-up">Sign up</Link>
-        </Button> */}
       </div>
 
       <NavbarItem>

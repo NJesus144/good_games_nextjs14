@@ -7,7 +7,11 @@ import GameInCart from "../database/models/product.model";
 import { handleError } from "../utils";
 import mongoose from "mongoose";
 
-export const createGameCart = async ({game,userId,path,}: CreateGameParams) => {
+export const createGameCart = async ({
+  game,
+  userId,
+  path,
+}: CreateGameParams) => {
   try {
     await connectToDatabase();
 
@@ -40,7 +44,10 @@ export const getGamesFromCart = async (userId: string) => {
   }
 };
 
-export const removeGameFromCart = async ({gameId,path,}: DeleteGameParams) => {
+export const removeGameFromCart = async ({
+  gameId,
+  path,
+}: DeleteGameParams) => {
   try {
     await connectToDatabase();
 
